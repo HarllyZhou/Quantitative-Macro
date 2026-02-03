@@ -1,0 +1,20 @@
+.DS_Store
+
+# R / RStudio
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user
+.Rproj.user/
+
+# renv (keep renv.lock tracked, ignore library)
+renv/library/
+renv/staging/
+
+# LaTeX build artifacts (you already have many; ignore new ones)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+
