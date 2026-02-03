@@ -49,7 +49,7 @@
     \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1d}. Codes in ``hw1\_q1d.R''.
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.7\textwidth]{hw1_q1d_acf_pacf.png}
+        \includegraphics[width=0.6\textwidth]{hw1_q1d_acf_pacf.png}
         \caption{ACF and PACF of the change in measured consumption}
         \label{fig:1d}
     \end{figure}
@@ -57,7 +57,7 @@
     \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1e_month} and Figure \ref{fig:1e_quarter}. Codes in ``hw1\_q1e.R''.
     \begin{figure}[htbp]
         \centering
-        \begin{subfigure}[t]{0.75\textwidth}
+        \begin{subfigure}[t]{0.6\textwidth}
             \centering
             \includegraphics[width=\textwidth]{hw1_q1e_month_acf_pacf.png}
             \caption{Monthly data: Jan 2007--Sep 2025 (exclude months after Sep 2025 since quarterly data ends at 2025Q3).}
@@ -66,7 +66,7 @@
 
         \vspace{0.8em}
 
-        \begin{subfigure}[t]{0.75\textwidth}
+        \begin{subfigure}[t]{0.6\textwidth}
             \centering
             \includegraphics[width=\textwidth]{hw1_q1e_quarter_acf_pacf.png}
             \caption{Quarterly data: 2007Q1--2025Q3.}
@@ -75,6 +75,10 @@
         \caption{ACF and PACF of the change in consumption (monthly and quarterly). Data source: FRED PCENDC96.}
         \label{fig:1e}
     \end{figure}
+
+    First, monthly data shows negative autocorrelation at lag 1, while quaterly data shows positive autocorrelation at lag 1 and 2, even 3. This shows higher persistence in monthly data, reflecting the fact that averaging over more months introduces more noise, as shown in part (b).
+
+    Second, in magnitude, quarterly data has larger autocorrelation than monthly data. This is introduced by aggregation over months.
     
 \end{enumerate}
 
