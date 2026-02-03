@@ -46,7 +46,7 @@
     
     Yes for the second part. Information known at $t-3$ only includes white noise no later then $t-3$, while $\Delta C_t$ is a linear combination of white noises after $t-3$. Given the serial uncorrelation property of white noise, they are not correlated.
 
-    \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1d}. Codes in ``hongyi\_zhou\_hw1\_q1d.R''.
+    \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1d}. Codes in ``hw1\_q1d.R''.
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=0.7\textwidth]{hw1_q1d_acf_pacf.png}
@@ -54,22 +54,32 @@
         \label{fig:1d}
     \end{figure}
 
-    \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1e_month} and Figure \ref{fig:1e_quarter}. Codes in ``hongyi\_zhou\_hw1\_q1d.R''.
+    \item The ACF and PACF of the change in measured consumption are shown in Figure \ref{fig:1e_month} and Figure \ref{fig:1e_quarter}. Codes in ``hw1\_q1e.R''.
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.7\textwidth]{hw1_q1e_month_acf_pacf.png}
-        \caption{ACF and PACF of the change in measured consumption using monthly data from Jan 1, 2007 to Sep 30, 2025. Months after Sep 2025 are excluded since the quarterly data only goes to Q3 2025.}
-        \label{fig:1e_month}
-    \end{figure}
+        \begin{subfigure}[t]{0.75\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{hw1_q1e_month_acf_pacf.png}
+            \caption{Monthly data: Jan 2007--Sep 2025 (exclude months after Sep 2025 since quarterly data ends at 2025Q3).}
+            \label{fig:1e_month}
+        \end{subfigure}
 
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.7\textwidth]{hw1_q1e_quarter_acf_pacf.png}
-        \caption{ACF and PACF of the change in measured consumption using quarterly data from Q1 2007 to Q3 2025}
-        \label{fig:1e_month}
+        \vspace{0.8em}
+
+        \begin{subfigure}[t]{0.75\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{hw1_q1e_quarter_acf_pacf.png}
+            \caption{Quarterly data: 2007Q1--2025Q3.}
+            \label{fig:1e_quarter}
+        \end{subfigure}
+        \caption{ACF and PACF of the change in consumption (monthly and quarterly). Data source: FRED PCENDC96.}
+        \label{fig:1e}
     \end{figure}
     
 \end{enumerate}
+
+\newpage
+
 
 \section*{Question 2}
 

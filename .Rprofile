@@ -1,4 +1,3 @@
-source("renv/activate.R")
 ## Project startup
 ## - Ensures scripts run from the project root in RStudio
 ## - Activates renv automatically in interactive sessions (optional)
