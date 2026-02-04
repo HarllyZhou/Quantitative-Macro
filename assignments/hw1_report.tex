@@ -76,9 +76,7 @@
         \label{fig:1e}
     \end{figure}
 
-    First, monthly data shows negative autocorrelation at lag 1, while quaterly data shows positive autocorrelation at lag 1 and 2, even 3. This shows higher persistence in monthly data, reflecting the fact that averaging over more months introduces more noise, as shown in part (b).
-
-    Second, in magnitude, quarterly data has larger autocorrelation than monthly data. This is introduced by aggregation over months.
+    Monthly data shows negative autocorrelation at lag 1, while quaterly data shows positive autocorrelation at lag 1 and 2, even 3. This shows higher persistence in quarterly data, reflecting the fact that averaging over more months introduces more serial correlation, as shown in part (b).
     
 \end{enumerate}
 
@@ -86,6 +84,20 @@
 
 
 \section*{Question 2}
+\begin{enumerate}[label=\alph*.]
+    \item Since $d$ is observable, the firm has the following optimization problem:
+    \begin{align*}
+        \max_{p}\, \Pi(p,d) = p^{-\frac{d+1}{d}}(p-1).
+    \end{align*}
+    The FOC condition gives
+    \begin{align*}
+        -\frac{d+1}{d} p^{-\frac{d+1}{d}-1}(p-1) + p^{-\frac{d+1}{d}} = 0.
+    \end{align*}
+    Multiplying both sides by $p^{\frac{d+1}{d}}$ and rearranging the terms, we get
+    \begin{align*}
+        p^*(d) = 1 + d.
+    \end{align*}
+\end{enumerate}
 
 \section*{Question 3}
 
