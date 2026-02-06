@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{hw1_q2b_surface.png}
+%     \caption{Optimal joint density f(p, d)}
+%     \label{fig:2b}
+% \end{figure}
+
+\title{ECON 5345 Homework 2 Report}
+\author{Harlly Zhou}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+\begin{enumerate}[label=\alph*.]
+   \item Q1
+\end{enumerate}
+
+\newpage
+
+
+\section*{Question 2}
+\begin{enumerate}[label=\alph*.]
+    \item Q2
+\end{enumerate}
+
+\newpage
+
+\section*{Question 3}
+\begin{enumerate}[label=\alph*.]
+   \item Q3
+\end{enumerate}
+
+\newpage
+
+\section*{Question 4}
+\begin{enumerate}[label=\alph*.]
+   \item The expectation is
+   \begin{align*}
+      \mathbb{E}[x_t] &= \mathbb{E}[\alpha] \cos t + \mathbb{E}[\beta] \sin t\\
+      & = 0.
+   \end{align*}
+   The variance is
+   \begin{align*}
+      \operatorname{Var}[x_t] &= \operatorname{Var}[\alpha] \cos^2 t + \operatorname{Var}[\beta] \sin^2 t + 2 \operatorname{Cov}(\alpha, \beta) \cos t \sin t\\
+      & = \cos^2 t + \sin^2 t\\
+      & = 1.
+   \end{align*}
+   The second line is by the independence of $\alpha$ and $\beta$.
+
+   \item No. Note that
+   \begin{align*}
+      \mathbb{E}[\alpha^2] &= \operatorname{Var}[\alpha] + \left(\mathbb{E}[\alpha]\right)^2\\
+      &= 1\\
+      \mathbb{E}[\beta^2] &= \operatorname{Var}[\beta] + \left(\mathbb{E}[\beta]\right)^2\\
+      &= 1\\
+      \mathbb{E}[\alpha \beta] &= \operatorname{Cov}(\alpha, \beta) + \mathbb{E}[\alpha] \mathbb{E}[\beta]\\
+      &= 0.
+   \end{align*}
+   As a result, we have
+   \begin{align*}
+      \mathbb{E}[x_t x_{t-k}] &= \mathbb{E}[\alpha^2] \cos t \cos (t-k) + \mathbb{E}[\beta^2] \sin t \sin (t-k)\\
+      &\qquad \quad + \mathbb{E}[\alpha \beta] [\cos t \sin (t-k) + \sin t \cos (t-k)]\\
+      &= \cos t \cos (t-k) + \sin t \sin (t-k)\\
+      &= \cos [t-(t-k)]\\
+      &= \cos k.
+   \end{align*}
+\end{enumerate}
+
+
+\end{document}
