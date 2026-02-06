@@ -99,7 +99,36 @@
     \end{align*}
 \end{enumerate}
 
+\newpage
+
 \section*{Question 3}
+\begin{enumerate}[label=\alph*.]
+    \item No. When the observations are treated as cross-sectional data, the model becomes
+    \begin{align*}
+        y_{i1} = \mu_i + \rho y_{i0} + e_{i1} = \rho y_{i0} + \epsilon_{i1},
+    \end{align*} 
+    where $\epsilon_{i1} = \mu_i + e_{i1}$. However, note that, typically, we have
+    \begin{align*}
+        \text{Cov}(y_{i0}, \mu_i) &= \text{Cov}(\mu_i + \rho y_{i, -1} + e_{i0}, \mu_i) \\
+        &= \text{Var}(\mu_i) + \rho \text{Cov}(y_{i, -1}, \mu_i) + \text{Cov}(e_{i0}, \mu_i) \\
+        &\neq 0.
+    \end{align*} 
+    Then the orthogonality condition is violated since the error term also contains $\mu_i$.
+
+    When setting $\mu_i = \mu$ for all $i$'s, the covariance becomes zero since $y_{i0}$ have zero covariance with constant $\mu$.
+
+    The estimators will converge to the true value as $N \to \infty$ if the orthogonality condition holds.
+
+    \item Yes. The model now becomes
+    \begin{align*}
+        y_t = \mu + \rho y_{t-1} + e_t.
+    \end{align*}
+    Using backward induction, we can write $y_t$ as a function of $\{e_s | s \leq t\}$, denoted by $h(\mathbf{e_t})$, where $\mathbf{e_t}$ denotes the vector of all $e_s$'s with $s\leq t$. Then independence between $e_s$'s implies that
+    \begin{align*}
+        \mathbb{E} [y_{t-1} e_t] = \mathbb{E} [h(\mathbf{e_{t-1}}) e_t] = 0.
+    \end{align*}
+    Since $e_s$ is with zero mean, the orthogonality conditions are satisfied and OLS works.
+\end{enumerate}
 
 
 \end{document}
