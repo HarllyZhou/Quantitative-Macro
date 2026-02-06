@@ -97,6 +97,14 @@
     \begin{align*}
         p^*(d) = 1 + d.
     \end{align*}
+
+    \item The code is in ``hw1\_q2b.R''. Since I used R, something may be different from the Matlab code. To find the initial point, I used the help of AI because uniform initial point produces a flat plane.The 3D plot is shown in Figure \ref{fig:2b}.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.6\textwidth]{hw1_q2b_surface.png}
+        \caption{Optimal joint density f(p, d)}
+        \label{fig:2b}
+    \end{figure}
 \end{enumerate}
 
 \newpage
@@ -128,6 +136,37 @@
         \mathbb{E} [y_{t-1} e_t] = \mathbb{E} [h(\mathbf{e_{t-1}}) e_t] = 0.
     \end{align*}
     Since $e_s$ is with zero mean, the orthogonality conditions are satisfied and OLS works.
+
+    \item 
+    \begin{table}[htbp]
+        \centering
+        \caption{Q3(c): Fixed-effects (demeaned) OLS estimates with $\rho=0.9$, $\sigma=1$, $T=2$.}
+        \label{tab:q3c}
+        \begin{tabular}{rrr}
+          \hline
+          $N$ & $T$ & $\hat{\rho}$ \\
+          \hline
+          100 & 2 & -0.006711 \\
+          500 & 2 & -0.182214 \\
+          1000 & 2 & -0.038676 \\
+          \hline
+        \end{tabular}
+      \end{table}
+      
+      \item 
+      \begin{table}[htbp]
+        \centering
+        \caption{Q3(d): Fixed-effects (demeaned) OLS estimates with $\\rho=0.9$, $\\sigma=1$, $N=1000$.}
+        \label{tab:q3d}
+        \begin{tabular}{rrr}
+          \hline
+          $N$ & $T$ & $\hat{\rho}$ \\
+          \hline
+          1000 & 5 & 0.450082 \\
+          1000 & 20 & 0.776592 \\
+          \hline
+        \end{tabular}
+      \end{table}
 \end{enumerate}
 
 
