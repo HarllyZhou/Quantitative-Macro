@@ -137,10 +137,11 @@
     \end{align*}
     Since $e_s$ is with zero mean, the orthogonality conditions are satisfied and OLS works.
 
-    \item 
+    \item Code in ``hw1\_q3.R''. Results are shown in Table \ref{tab:q3c}.
+    
     \begin{table}[htbp]
         \centering
-        \caption{Q3(c): Fixed-effects (demeaned) OLS estimates with $\rho=0.9$, $\sigma=1$, $T=2$.}
+        \caption{OLS estimates}
         \label{tab:q3c}
         \begin{tabular}{rrr}
           \hline
@@ -152,11 +153,15 @@
           \hline
         \end{tabular}
       \end{table}
+
+      There is no convergence to the true value as $N$ increases.
       
-      \item 
+      
+      \item Code in ``hw1\_q3.R''. Results are shown in Table \ref{tab:q3d}.
+      
       \begin{table}[htbp]
         \centering
-        \caption{Q3(d): Fixed-effects (demeaned) OLS estimates with $\\rho=0.9$, $\\sigma=1$, $N=1000$.}
+        \caption{OLS estimates}
         \label{tab:q3d}
         \begin{tabular}{rrr}
           \hline
@@ -167,6 +172,8 @@
           \hline
         \end{tabular}
       \end{table}
+
+      Convergence is seen by increasing $T$. Therefore, for $AR(1)$ model, the Nickell bias is mainly caused by the serial correlation. With $T$ going to infinity, the bias is smaller.
 \end{enumerate}
 
 
