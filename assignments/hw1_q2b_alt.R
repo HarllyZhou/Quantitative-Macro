@@ -1,4 +1,7 @@
 # econ 5345 hw1 - q2b
+#
+# This is the same as hw1_q2b.R, except the initial point uses a simple uniform start:
+#   x0 <- rep(1 / (np * nd), np * nd)
 
 # package installation for constrained optimization
 ensure_pkg <- function(pkg) {
@@ -35,89 +38,94 @@ library(nloptr)
 rm(list = ls())
 graphics.off()
 
-
 # discretization
-np <- 15L
-nmu <- 15L
+np <- 20L
+nd <- 20L
 
-muMin <- 0.8
-muMax <- 1.2
+dMin <- 1 / 9
+dMax <- 1 / 2
 
-theta <- 3
+kappa <- 0.5
+gd <- rep(1 / nd, nd) # uniform prior pmf on d-grid
 
-pMin <- theta / (theta - 1) * muMin
-pMax <- theta / (theta - 1) * muMax
+dGrid <- seq(dMin, dMax, length.out = nd)
 
-muGrid <- seq(muMin, muMax, length.out = nmu)
+# full-information optimal price: p*(d) = 1 + d
+pMin <- 1 + dMin
+pMax <- 1 + dMax
 pGrid <- seq(pMin, pMax, length.out = np)
 
-kappa <- 1
-gmu <- rep(1 / nmu, nmu)
-
-
 # produce the profit matrix
-p2 <- matrix(pGrid, nrow = np, ncol = nmu, byrow = FALSE)
-mu2 <- matrix(muGrid, nrow = np, ncol = nmu, byrow = TRUE)
+# ndgrid(pGrid, dGrid): (np x nd)
+p2 <- matrix(pGrid, nrow = np, ncol = nd, byrow = FALSE)
+d2 <- matrix(dGrid, nrow = np, ncol = nd, byrow = TRUE)
 
-pi_mat <- p2^(-theta) * (p2 - mu2)
+# Pi(p,d) = p^(-(d+1)/d) * (p - 1)
+pi_mat <- p2^(-(d2 + 1) / d2) * (p2 - 1)
 
 # functions needed
 make_mat <- function(x) {
-  matrix(x, nrow = np, ncol = nmu, byrow = FALSE)
+  matrix(x, nrow = np, ncol = nd, byrow = FALSE)
 }
 
 ## I(p,d): F is [f_{i,j}]
 information <- function(F) {
   fp <- rowSums(F)
-  fmu <- colSums(F)
+  fd <- colSums(F)
   pos <- F > 0
-  mi_nats <- sum(F[pos] * log(F[pos])) - sum(fp * log(fp)) - sum(fmu * log(fmu))
+  mi_nats <- sum(F[pos] * log(F[pos])) - sum(fp * log(fp)) - sum(fd * log(fd))
   mi_nats / log(2)
 }
 
 ## objective function, but negative for minimization
-obj_f <- function(x) {
+obj <- function(x) {
   F <- make_mat(x)
   obj <- -sum(pi_mat * F)
-  # SLSQP in nloptr expects an explicit gradient for the objective.
-  grad <- -as.vector(pi_mat)  # linear objective
+  grad <- -as.vector(pi_mat) # linear objective
   list(objective = obj, gradient = grad)
 }
 
-## equality constraint
-eq_cons <- function(x) {
+# Equality constraints: colSums(F) == gd  (marginal over d equals prior)
+eq <- function(x) {
   F <- make_mat(x)
-  cons <- colSums(F) - gmu
+  cons <- colSums(F) - gd
 
-  J <- matrix(0, nrow = nmu, ncol = np * nmu)
-  for (j in 1:nmu) {
-    idx <- ((j - 1L) * np + 1L):(j * np)
+  # Jacobian: nd constraints x (np*nd) variables
+  J <- matrix(0, nrow = nd, ncol = np * nd)
+  for (j in 1:nd) {
+    idx <- ((j - 1L) * np + 1L):(j * np) # column-major indices for column j
     J[j, idx] <- 1
   }
   list(constraints = cons, jacobian = J)
 }
 
-## inequality constraint
-ineq_cons <- function(x) {
+# Inequality constraint: I(p,d) - kappa <= 0
+ineq <- function(x) {
   F <- make_mat(x)
   fp <- rowSums(F)
-  fmu <- colSums(F)
+  fd <- colSums(F)
 
-  grad_mat <- (log(F) - log(fp) - matrix(log(fmu), nrow = np, ncol = nmu, byrow = TRUE) - 1) / log(2)
+  # Gradient of MI (bits) w.r.t. each f_ij:
+  # d/d f_ij [I_bits] = (log(f_ij) - log(fp_i) - log(fd_j) - 1) / log(2)
+  grad_mat <- (log(F) - log(fp) - matrix(log(fd), nrow = np, ncol = nd, byrow = TRUE) - 1) / log(2)
   grad <- as.vector(grad_mat)
 
   list(constraints = information(F) - kappa, jacobian = matrix(grad, nrow = 1))
 }
 
-# optimization process
-x0 <- rep(1 / (np * nmu), np * nmu)
-lb <- rep(1e-12, np * nmu)
-ub <- rep(1, np * nmu)
+# optimization (mirror fmincon)
+# initial point
+x0 <- rep(1 / (np * nd), np * nd)
+
+# Keep strictly positive to avoid log(0) in information / gradients
+lb <- rep(1e-12, np * nd)
+ub <- rep(1, np * nd)
 
 opts <- list(
   algorithm = "NLOPT_LD_SLSQP",
-  maxeval = 20000L,
-  maxtime = 30, 
+  # Matlab sample uses extremely tight tolerances; relax for practicality
+  maxeval = 30000L,
+  maxtime = 45,     # seconds
   xtol_rel = 1e-8,
   ftol_rel = 1e-8,
   print_level = 0
@@ -125,31 +133,37 @@ opts <- list(
 
 res <- nloptr(
   x0 = x0,
-  eval_f = eval_f,
+  eval_f = obj,
   lb = lb,
   ub = ub,
-  eq_cons = eq_cons,
-  ineq_cons = ineq_cons,
+  eval_g_eq = eq,
+  eval_g_ineq = ineq,
   opts = opts
 )
 
 F_pmf <- make_mat(res$solution)
-
-F_pdf <- F_pmf / ((muMax - muMin) * (pMax - pMin))
+F_pdf <- F_pmf / ((dMax - dMin) * (pMax - pMin))  # pmf -> pdf
 
 cat("Optimization status:", res$status, "\n")
 cat("Message:", res$message, "\n")
-cat("Expected profit (objective):", -res$objective, "\n")
-cat("Mutual information (bits):", information(F_pmf), "\n")
+cat("Expected profit:", -res$objective, "\n")
+cat("Mutual information (bits):", format(information(F_pmf), digits = 6), "\n")
 
-# plotting and saving
-out_png <- "hw1_q2b_sample_surface.png"
+# plotting and saving (3D surface only)
+out_png <- "hw1_q2b_alt_surface.png"
 png(out_png, width = 900, height = 700, res = 130)
+z <- F_pdf
+zlim <- range(z, finite = TRUE)
+if (!is.finite(zlim[1]) || !is.finite(zlim[2]) || zlim[1] == zlim[2]) {
+  zlim <- c(0, max(1e-8, zlim[2] + 1e-8))
+}
 persp(
-  x = pGrid, y = muGrid, z = F_pdf,
+  x = pGrid, y = dGrid, z = z,
   theta = 35, phi = 25, expand = 0.6, col = "lightblue",
-  xlab = "p", ylab = expression(mu), zlab = "f(p, mu)",
-  main = "Optimal joint density f(p, mu)"
+  xlab = "p", ylab = "d", zlab = "f(p, d)",
+  main = "Optimal joint density f(p, d)",
+  zlim = zlim,
+  ticktype = "detailed"
 )
 dev.off()
 cat("Saved 3D plot to:", out_png, "\n")
