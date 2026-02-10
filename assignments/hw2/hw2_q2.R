@@ -40,18 +40,6 @@ irf_df <- data.frame(
 
 ########################################################
 # part (a)
-
-latex_table <- knitr::kable(
-  irf_df,
-  format  = "latex",
-  caption = "Impulse response",
-  label   = "tab:q2a",
-  booktabs = TRUE,
-  digits = 4
-)
-cat(latex_table, sep = "\n")
-
-# plot
 get_script_dir <- function() {
   if (requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {
@@ -77,7 +65,7 @@ cat("Saved irf plot to:", out_png, "\n")
 # part (b)
 mean <- mean(irf_df$irf)
 var <- var(irf_df$irf)
-cov <- cov(irf_df$irf, irf_df$irf[2:length(irf_df$irf)])
+ac <- acf(y_shock, type = "covariance", lag.max = 2, plot = FALSE)
 print(mean)
 print(var)
-print(cov)
+print(ac)
