@@ -46,9 +46,9 @@ T <- 200
 burning <- 100
 
 k <- 2
-theta <- sqrt( 3 / k )
+h <- sqrt( 3 / k )
 
-e <- rgamma(T + 1, shape = k, scale = theta) - k * theta
+e <- rgamma(T + 1, shape = k, scale = h) - k * h
 
 
 simulate_y <- function(e) {
@@ -72,8 +72,8 @@ for (t in 1:T-burning) {
 
 
 y_plot <- data.frame(
-  t = 0:T,
-  y = y
+  t = 1:100,
+  y = y_burning
 )
 
 # part (a)
@@ -97,3 +97,4 @@ abline(h = 0, lty = 3)
 dev.off()
 
 cat("Saved irf plot to:", out_png, "\n")
+
