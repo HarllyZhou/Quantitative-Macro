@@ -63,7 +63,7 @@
       \label{fig:2a}
     \end{figure}
 
-
+    \newpage
     \item We can write $y_t$ as a $MA(\infty)$ process:
     \begin{align*}
       y_t = \sum_{j=0}^{\infty} \psi_j e_{t-j}.
@@ -93,13 +93,12 @@
     \end{align*}
     By the ACGF, 
     \begin{align*}
-      \gamma(0) &= 15\\
-      \gamma(1) &= 13.2\\
-      \gamma(2) &= 10.56.
+      \gamma(0) &= 15, \gamma(1) &= 13.2, \gamma(2) &= 10.56.
     \end{align*}
     This verifies the results in part (b).
     
-    \item I used $e \sim Gamma(2, \sqrt{3})$ to generate the innovations. The figure below is the simulated path of $y$. Codes in ``hw2\_q2.R''. 
+    \newpage
+    \item I used $e \sim \mathcal{N}(0, 3)$ to generate the innovations. The figure \ref{fig:2d} is the simulated path of $y$. Codes in ``hw2\_q2.R''. 
    \begin{figure}[htbp]
       \centering
       \includegraphics[width=0.6\textwidth]{hw2_q2d_y.png}
@@ -108,8 +107,212 @@
    \end{figure}
 
    The reason for burning is to gain stationarity in the long run.
+
+   \item 
+   \begin{enumerate}[label=\roman*.]
+      \item I tried $M=3$ in the algorithm. The following tables are the reports:
+      \begin{table}[ht]
+         \centering
+         \begin{tabular}{rrrrr}
+           \hline
+          & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+           \hline
+         (Intercept) & -0.0154 & 0.0093 & -1.65 & 0.1024 \\ 
+           y\_lag & 0.6891 & 0.0035 & 196.14 & 0.0000 \\ 
+           e\_lag & 0.3882 & 0.0063 & 61.57 & 0.0000 \\ 
+            \hline
+         \end{tabular}
+         \caption{Hannan--Rissanen Estimates} 
+         \label{tab:hr_step2}
+      \end{table}
+
+      \item The MoM estiamtes are $\hat{\alpha} = 0.6785974$ and $\hat{\theta} = 0.4163043$.
    \end{enumerate}
 
+   \newpage
+   \item Table \ref{tab:q2f} summarizes the simulation results.
+   \begin{table}[ht]
+      \centering
+      \begin{tabular}{llrrrrr}
+        \hline
+      method & parameter & true & mean\_hat & bias & mse & sd \\ 
+        \hline
+        HR & alpha & 0.80 & 0.76 & -0.04 & 0.01 & 0.08 \\ 
+        HR & theta & 0.40 & 0.40 & -0.00 & 0.01 & 0.11 \\ 
+        MoM  & alpha & 0.80 & 0.78 & -0.02 & 0.01 & 0.08 \\ 
+        MoM & theta & 0.40 & 0.44 & 0.04 & 0.04 & 0.19 \\ 
+         \hline
+      \end{tabular}
+      \caption{Parameter estimates statistics.} 
+      \label{tab:q2f}
+   \end{table}
+   
+   Distributions are in Figure \ref{fig:q2f}.
+  
+
+\begin{figure}[htbp]
+   \centering
+
+   \begin{subfigure}[t]{0.40\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q2f_alpha_hr.png}
+       \caption{$\hat{\alpha}$ (HR)}
+       \label{fig:q2f_alpha_hr}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[t]{0.40\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q2f_theta_hr.png}
+       \caption{$\hat{\theta}$ (HR)}
+       \label{fig:q2f_theta_hr}
+   \end{subfigure}
+
+   \vspace{0.35cm}
+
+   \begin{subfigure}[t]{0.40\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q2f_alpha_mom.png}
+       \caption{$\hat{\alpha}$ (MoM)}
+       \label{fig:q2f_alpha_mom}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[t]{0.40\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q2f_theta_mom.png}
+       \caption{$\hat{\theta}$ (MoM)}
+       \label{fig:q2f_theta_mom}
+   \end{subfigure}
+
+   \caption{Distrubutions of parameter estimates. Dashed vertical line indicates the true parameter value.}
+   \label{fig:q2f}
+\end{figure}
+
+\newpage
+
+\item First, $T=50$. 
+
+Table \ref{tab:q2g50} summarizes the simulation results.
+\begin{table}[ht]
+   \centering
+   \begin{tabular}{llrrrrr}
+     \hline
+   method & parameter & true & mean\_hat & bias & mse & sd \\ 
+     \hline
+     HR & alpha & 0.80 & 0.71 & -0.09 & 0.02 & 0.13 \\ 
+     HR & theta & 0.40 & 0.41 & 0.01 & 0.02 & 0.15 \\ 
+     MoM  & alpha & 0.80 & 0.75 & -0.05 & 0.02 & 0.12 \\ 
+     MoM & theta & 0.40 & 0.46 & 0.06 & 0.06 & 0.24 \\ 
+      \hline
+   \end{tabular}
+   \caption{Parameter estimates statistics.} 
+   \label{tab:q2g50}
+\end{table}
+
+   Distributions are in Figure \ref{fig:q2g50}.
+
+   \begin{figure}[htbp]
+      \centering
+   
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g50_alpha_hr.png}
+          \caption{$\hat{\alpha}$ (HR)}
+          \label{fig:q2g50_alpha_hr}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g50_theta_hr.png}
+          \caption{$\hat{\theta}$ (HR)}
+          \label{fig:q2g50_theta_hr}
+      \end{subfigure}
+   
+      \vspace{0.35cm}
+   
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g50_alpha_mom.png}
+          \caption{$\hat{\alpha}$ (MoM)}
+          \label{fig:q2g50_alpha_mom}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g50_theta_mom.png}
+          \caption{$\hat{\theta}$ (MoM)}
+          \label{fig:q2g50_theta_mom}
+      \end{subfigure}
+
+      \caption{Distrubutions of parameter estimates. Dashed vertical line indicates the true parameter value.}
+   \label{fig:q2g50}
+\end{figure}
+
+\newpage Then $T=500$.
+
+
+Table \ref{tab:q2g500} summarizes the simulation results.
+\begin{table}[ht]
+   \centering
+   \begin{tabular}{llrrrrr}
+     \hline
+   method & parameter & true & mean\_hat & bias & mse & sd \\ 
+     \hline
+     HR & alpha & 0.80 & 0.79 & -0.01 & 0.00 & 0.03 \\ 
+     HR & theta & 0.40 & 0.40 & -0.00 & 0.00 & 0.05 \\ 
+     MoM  & alpha & 0.80 & 0.79 & -0.01 & 0.00 & 0.03 \\ 
+     MoM & theta & 0.40 & 0.41 & 0.01 & 0.00 & 0.07 \\ 
+      \hline
+   \end{tabular}
+   \caption{Parameter estimates statistics.} 
+   \label{tab:q2g500}
+\end{table}
+
+   Distributions are in Figure \ref{fig:q2g500}.
+
+   \begin{figure}[htbp]
+      \centering
+   
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g500_alpha_hr.png}
+          \caption{$\hat{\alpha}$ (HR)}
+          \label{fig:q2g500_alpha_hr}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g500_theta_hr.png}
+          \caption{$\hat{\theta}$ (HR)}
+          \label{fig:q2g500_theta_hr}
+      \end{subfigure}
+   
+      \vspace{0.35cm}
+   
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g500_alpha_mom.png}
+          \caption{$\hat{\alpha}$ (MoM)}
+          \label{fig:q2g500_alpha_mom}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q2g500_theta_mom.png}
+          \caption{$\hat{\theta}$ (MoM)}
+          \label{fig:q2g500_theta_mom}
+      \end{subfigure}
+
+      \caption{Distrubutions of parameter estimates. Dashed vertical line indicates the true parameter value.}
+   \label{fig:q2g500}
+\end{figure}
+
+\newpage
+\item As $T$ increases, the mean value of the estimates converges to the true parameter value, the MSE vanishes, and the standard deviation decreases. The distribution are more concentrated around the true parameter value.
+
+I also observe a spike around 1 in the distribution of $\hat{\theta}$ using MoM when $T$ is small. The density at (around) 1 shrinks as $T$ increases. This is because the sample is noisy when the size is small so that the MSE function is flatter and the optimizer will fall around the boundary. The identification of $\theta$ is strengthened when the sample size becomes larger.
+
+
+\end{enumerate}
    
 
 \newpage
