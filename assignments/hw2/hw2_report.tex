@@ -28,7 +28,25 @@
 
 \section*{Question 1}
 \begin{enumerate}[label=\alph*.]
-   \item Q1
+   \item Taking logarithm, we have
+   \begin{align*}
+      \log A_t = z_t + \alpha \log \Gamma_t.
+   \end{align*}
+   Taking difference, we get
+   \begin{align*}
+      \Delta a_t = \log A_t - \log A_{t-1} =  (\rho_z - 1) z_{t-1} + \alpha g_t + e_t^z.
+   \end{align*}
+   Since $\{z_t\}$ and $\{g_t\}$ are stationary and $e_t^z \overset{i.i.d.}{\sim} \mathcal{N}(0, \sigma_z^2)$, we have $\Delta a_t$ being stationary. So $d=1$.
+
+   Note that
+   \begin{align*}
+      (1-\rho_z L) \Delta z_t = (1-L) e_t^z, \text{ and }\, (1-\rho_g L) g_t = (1-\rho_g) \mu_g + e_t^g.
+   \end{align*}
+   Multiplying $\Delta a_t = \Delta z_t + \alpha \Delta g_t$ by $(1-\rho_z L)(1-\rho_g L)$, we get
+   \begin{align*}
+      (1-\rho_z L)(1-\rho_g L) \Delta a_t = (1-\rho_g L) (1-L) e_t^z + \alpha (1-\rho_z L)[(1-\rho_g)\mu_g + e_t^g].
+   \end{align*}
+   The LHS characterizes an $AR(2)$ process and the RHS characterizes a $MA(2)$ process. So $p=2, q=2$.
 \end{enumerate}
 
 \newpage
