@@ -383,7 +383,45 @@ I also observe a spike around 1 in the distribution of $\hat{\theta}$ using MoM 
 
 \section*{Question 3}
 \begin{enumerate}[label=\alph*.]
-   \item The following figure shows the result.
+   \item Figure \ref{fig:q3a} shows the results. 
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw2_q3a.png}
+      \caption{ACF and PACF of Inflation and GDP Growth}
+      \label{fig:q3a}
+   \end{figure}
+
+   Inflation shows strong positive autocorrelation while GDP growth does not. Both series have PACF dying out quickly, while the partial serial correlations of the two time series at similar lags are of the same sign, in general.
+
+   \item The Box-Jenkins principle says that we should use the smallest number of parameters for adequate representation.
+   
+   For inflation, the serial correlation is quite persistent. The PACF dies out after lag 2. I would pick $ARMA(3,2)$ to account for the persistence.
+
+   For GDP growth, both ACF and PACF dies out at around lag 1. So I would pick $ARMA(1,1)$.
+
+   \item Table \ref{tab:q3c} shows the BIC values for AR(p) models, p=0, \dots, 10. For inflation, $p=4$ gives us the lowest BIC and for GDP growth $p=0$ gives us the lowest BIC. So we choose $AR(4)$ for inflation and no autocorrelation for GDP growth.
+   \begin{table}[ht]
+      \centering
+      \caption{BIC values for AR(p) models, p=0,\dots,10} 
+      \label{tab:q3c}
+      \begin{tabular}{rrr}
+        \hline
+        p & Inflation & GDPGrowth \\ 
+        \hline
+          0 & 761.06 & 968.23 \\ 
+          1 & 534.32 & 968.29 \\ 
+          2 & 534.05 & 971.08 \\ 
+          3 & 524.68 & 976.53 \\ 
+          4 & 521.16 & 980.74 \\ 
+          5 & 523.72 & 985.69 \\ 
+          6 & 529.32 & 991.24 \\ 
+          7 & 535.03 & 996.98 \\ 
+          8 & 537.59 & 1002.58 \\ 
+          9 & 536.92 & 1007.80 \\ 
+         10 & 530.51 & 1013.15 \\ 
+         \hline
+      \end{tabular}
+      \end{table}
 \end{enumerate}
 
 \newpage
