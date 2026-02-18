@@ -43,10 +43,56 @@
       (1-\rho_z L) \Delta z_t = (1-L) e_t^z, \text{ and }\, (1-\rho_g L) g_t = (1-\rho_g) \mu_g + e_t^g.
    \end{align*}
    Multiplying $\Delta a_t = \Delta z_t + \alpha \Delta g_t$ by $(1-\rho_z L)(1-\rho_g L)$, we get
-   \begin{align*}
+   \begin{align}\label{eq:arima(2,1,2)}
       (1-\rho_z L)(1-\rho_g L) \Delta a_t = (1-\rho_g L) (1-L) e_t^z + \alpha (1-\rho_z L)[(1-\rho_g)\mu_g + e_t^g].
-   \end{align*}
+   \end{align}
    The LHS characterizes an $AR(2)$ process and the RHS characterizes a $MA(2)$ process. So $p=2, q=2$.
+
+   % \item By stability and invertibility conditions, we can expand the $ARIMA(2,1,2)$ process as
+   % \begin{align*}
+   %    \Delta a_t = \alpha \mu_g + e_t + (\rho_z-1)\sum_{j=0}^{+\infty} \rho_z^j e_{t-j-1}^z + \alpha \sum_{j=0}^{+\infty} \rho_g^j e_{t-j}^g.
+   % \end{align*}
+   \newpage
+
+   \item Consider the stationary $z$ part first. We have
+   \begin{align*}
+      z_{t+h} = \sum_{j=0}^{+\infty} \rho_z^j e_{t+h-j}^z.
+   \end{align*}
+   Given $\{z_\tau\}_{\tau=-\infty}^{t-1}$, the forecase error variance is
+   \begin{align*}
+      FEV_h^z = \operatorname{Var}\left[\sum_{j=0}^h \rho_z^j e_{t+h-j}^z\right] = \sigma_z^2 \frac{1-\rho_z^{2(h+1)}}{1-\rho_z^2}.
+   \end{align*}
+
+   Now consider the trend component $\log \Gamma_t$. Note that
+   \begin{align*}
+      \log \Gamma_{t+h} = \log \Gamma_{t-1} + \sum_{j=0}^h g_{t+j}.
+   \end{align*}
+   Ignoring the constant term, the $g_t$ process can be written as
+   \begin{align*}
+      g_{t+h} = \sum_{j=0}^{+\infty} \rho_g^j e_{t+h-j}^g.
+   \end{align*}
+   Given $\{z_\tau\}_{\tau=-\infty}^{t-1}$, the forecase error variance is
+   \begin{align*}
+      FEV_h^\Gamma = \operatorname{Var}\left[\sum_{j=0}^h \sum_{i=0}^j \rho_g^i e_{t+j-i}^g \right].
+   \end{align*}
+   We can compute the values by plugging in the parameter values. Figure \ref{fig:q1b} shows that plot. 
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw2_q1b.png}
+      \caption{Forecast Error Variance}
+      \label{fig:q1b}
+   \end{figure}
+    
+   \newpage
+   \item The decomposition is shown in Figure \ref{fig:q1c}.
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw2_q1c.png}
+      \caption{Decomposition of Forecast Error Variance}
+      \label{fig:q1c}
+   \end{figure}
+
+   The effect of transitory components decays with time. The permanent components have a more persistent effect. From the expressions of $FEV^z$ and $FEV^{\Gamma}$, mathematically, we can observe that each term of $e^z$ is summed once, while each term of $e^g$ is summed multiple times. This makes the effect from permanent components accumulate.
 \end{enumerate}
 
 \newpage
@@ -337,7 +383,7 @@ I also observe a spike around 1 in the distribution of $\hat{\theta}$ using MoM 
 
 \section*{Question 3}
 \begin{enumerate}[label=\alph*.]
-   \item Q3
+   \item 
 \end{enumerate}
 
 \newpage
