@@ -399,6 +399,8 @@ I also observe a spike around 1 in the distribution of $\hat{\theta}$ using MoM 
 
    For GDP growth, both ACF and PACF dies out at around lag 1. So I would pick $ARMA(1,1)$.
 
+   \newpage
+
    \item Table \ref{tab:q3c} shows the BIC values for AR(p) models, p=0, \dots, 10. For inflation, $p=4$ gives us the lowest BIC and for GDP growth $p=0$ gives us the lowest BIC. So we choose $AR(4)$ for inflation and no autocorrelation for GDP growth.
    \begin{table}[ht]
       \centering
@@ -422,6 +424,84 @@ I also observe a spike around 1 in the distribution of $\hat{\theta}$ using MoM 
          \hline
       \end{tabular}
       \end{table}
+
+   \newpage
+   \item Test statistics are in Table \ref{tab:q3d}.
+   \begin{table}[ht]
+   \centering
+   \caption{Diagnostic Tests: Ljung--Box and Jarque--Bera} 
+   \label{tab:q3d}
+   \begin{tabular}{lrrrr}
+     \hline
+   Series & LB & $p$-value & JB & $p$-value \\ 
+     \hline
+   Inflation (AR(4)) & 24.27 & 0.00 & 1176.27 & 0.00 \\ 
+     GDP Growth (AR(0)) & 16.38 & 0.17 & 3342.39 & 0.00 \\ 
+      \hline
+   \end{tabular}
+   \end{table}
+
+   The $AR(4)$ model for inflation is not enough to capture serial correlation because the $p$-value of Ljung-Box still shows that there exists autocorrelation in the residuals. The Jarque-Bera test shows that the residuals are not normally distributed.
+
+   The $AR(0)$ model for GDP growth seems appropriate in the sense that the $p$-value of the Ljung-Box test is large. However, the $p$-value for the Jarque-Bera test is still small, indicating that the residuals are not normally distributed.
+
+   The ACF and PACF of the residuals are in Figure \ref{fig:q3d}.
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw2_q3d.png}
+      \caption{ACF and PACF of Residuals}
+      \label{fig:q3d}
+   \end{figure}
+
+   If the true DGP is truely $AR(p)$, then the ACF and the PACF of the residuals should be both (approximately) zero at all lags. However, the $AR(4)$ for inflation fails this test while $AR(0)$ for GDP growth (almost) passes this test.
+
+   The above diagnostic shows that the true DGP may not be a simple $AR(p)$ process for inflation, while $AR(0)$ may be a correct one for GDP growth rate.
+
+   \newpage
+   \item Fan charts are in Figure \ref{fig:q3e_fan_chart}.
+   \begin{figure}[htbp]
+      \centering
+   
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q3e_inflation.png}
+          \caption{Inflation}
+          \label{fig:q3e_inflation}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.42\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{hw2_q3e_gdp_growth.png}
+          \caption{GDP Growth}
+          \label{fig:q3e_gdp_growth}
+      \end{subfigure}
+      \caption{Fan Charts.}
+   \label{fig:q3e_fan_chart}
+\end{figure}
+
+The forecast errors are in Figure \ref{fig:q3e_error}.
+\begin{figure}[htbp]
+   \centering
+
+   \begin{subfigure}[t]{0.42\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q3e_inflation_error.png}
+       \caption{Inflation}
+       \label{fig:q3e_inflation_error}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[t]{0.42\textwidth}
+       \centering
+       \includegraphics[width=\linewidth]{hw2_q3e_gdp_error.png}
+       \caption{GDP Growth}
+       \label{fig:q3e_gdp_error}
+   \end{subfigure}
+   \caption{Forecast Errors.}
+\label{fig:q3e_error}
+\end{figure}
+
+It is clear that the $AR(4)$ model for inflation is not able to well predict the inflation rate since the difference is quite large in magnitude. The prediction of GDP growth rate using mean ($AR(0)$) is more reasonable. The difference is much smaller in magnitude. The comparison echoes with the diagnostics in part (d).
+
 \end{enumerate}
 
 \newpage
