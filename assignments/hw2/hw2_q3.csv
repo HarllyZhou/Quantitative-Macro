@@ -1,4 +1,4 @@
-observation_date,CPIAUCSL_PCH,GDPC1_PCH
+observation_date,inflation,gdp_growth
 1947-04-01,1.42857,-0.26522
 1947-07-01,2.18083,-0.20488
 1947-10-01,2.83089,1.56599
