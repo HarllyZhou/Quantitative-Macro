@@ -27,16 +27,89 @@
 \maketitle
 
 \section*{Question 1}
-\begin{enumerate}[label=\alph*.]
-    \item 
-\end{enumerate}
+    All the four methods reflects high variation at (approximately) the same frequencies. This is consistent with the concept that the latter three are local averages of the periodogram.
 
+    The periodogram is not consistent in the sense that its variance does not vanishes. It is zigzagged since no smoothing is applied.
+    
+    The AR spectrum is smoother among the four. This is due to its parametric nature. 
+    
+    Comparing the N-W kernel estimation with or without prewhitening, I find that the non-prewhitened one underestimates the variation at spiky frequencies. 
+
+    The plots are in Figures \ref{fig:1a} to \ref{fig:1f}.
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_gdp_growth_methods.png}
+      \caption{GDP growth without HP filter. Panel (a) is periodogram, (b) is $AR(2)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1a}
+    \end{figure}
+
+   \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_gdp_hp_cycle_methods.png}
+      \caption{GDP growth with HP filter. Panel (a) is periodogram, (b) is $AR(12)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1b}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_inflation_methods.png}
+      \caption{Inflation without HP filter. Panel (a) is periodogram, (b) is $AR(19)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1c}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_inflation_hp_cycle_methods.png}
+      \caption{Inflation with HP filter. Panel (a) is periodogram, (b) is $AR(19)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1d}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_ffr_methods.png}
+      \caption{EFFR without HP filter. Panel (a) is periodogram, (b) is $AR(7)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1e}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.75\textwidth]{hw3_q1_ffr_hp_cycle_methods.png}
+      \caption{Effective FFR with HP filter. Panel (a) is periodogram, (b) is $AR(8)$ spectrum, (c) is N-W kernel spectrum, (d) is the prewhitened N-W.}
+      \label{fig:1f}
+    \end{figure}
+
+* Left blank for layout *.
 
 \newpage
 \section*{Question 2}
-\begin{enumerate}[label=\alph*.]
-   \item 
-\end{enumerate}
+   Combine the two steps, we have
+   \begin{align*}
+      K(L) = \frac{1}{5}(L^{-5} - L^5)(L^{-2} + L^{-1} + 1 + L + L^2).
+   \end{align*}
+   The gain is plotted in figure \ref{fig:2a}.
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.8\textwidth]{hw3_q2.png}
+      \caption{Gain of $K(L)$.}
+      \label{fig:2a}
+   \end{figure}
+
+   The last line of code gets the omega value that maximizes the gain (the peak of the curve), $\omega^* = 0.2901$. Note that since this is the year frequency transformation, this $\omega^*$ corresponding to a periodicity of $2\pi / 0.2901 \approx 21.4$ years.
+
+   Expanding the expression of $K(L)$, we have
+   \begin{align*}
+      K(L) = \sum_{j=-7}^{7} \kappa_j L^j,
+   \end{align*}
+   where
+   \begin{equation*}
+      \kappa_j = \begin{cases}
+         -\frac{1}{5} & \text{ if } j = 3, 4, 5, 6, 7\\
+         \frac{1}{5} & \text{ if } j = -3, -4, -5, -6, -7\\
+         0 & \text{ otherwise}.
+      \end{cases}
+   \end{equation*}
+   It is essentially a band-pass filter. For a white noise process, it has flat spectral density. By applying this band-pass filter, the artificial swing will be generated.
 
 
 
@@ -113,7 +186,7 @@ I assume $e_t \sim \mathcal{N}(0, 1)$ and $u_t \sim \mathcal{U}(-\sqrt{3}, \sqrt
 \newpage
 \section*{Question 4}
 \begin{enumerate}[label=\alph*.]
-   \item The gain of $H^+$ is plotted in \ref{fig:4a}. The highest value is at around $|\omega| = 0.25 \in \left(\frac{2\pi}{32}, \frac{2\pi}{6}\right)$ which is in the range of the business cycle frequency. Therefore, $\{c_t\}$ will have more variation at the business cycle frequencies.
+   \item The gain of $H^+$ is plotted in Figure \ref{fig:4a}. The highest value is at around $|\omega| = 0.25 \in \left(\frac{2\pi}{32}, \frac{2\pi}{6}\right)$ which is in the range of the business cycle frequency. Therefore, $\{c_t\}$ will have more variation at the business cycle frequencies.
    \begin{figure}[htbp]
       \centering
       \includegraphics[width=0.6\textwidth]{hw3_q4a_gain.png}
