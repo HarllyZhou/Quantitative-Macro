@@ -42,15 +42,134 @@
 
 \newpage
 \section*{Question 3}
+I assume $e_t \sim \mathcal{N}(0, 1)$ and $u_t \sim \mathcal{U}(-\sqrt{3}, \sqrt{3})$ for data generation. I checked the sample moment $\mathbb{E}[e_t u _t] = 0.0025$, consistent with orthogonality assumption.
 \begin{enumerate}[label=\alph*.]
-   \item 
+   \item The following results are for HP-filter.
+   \begin{table}[ht]
+      \centering
+      \begin{tabular}{ll}
+        \hline
+      Statistic & Value \\ 
+        \hline
+      Min & -0.5874 \\ 
+        1st Qu. & -0.1134 \\ 
+        Median & 0.0092 \\ 
+        Mean ($\mu^{HP}$) & 0.0075 \\ 
+        3rd Qu. & 0.1215 \\ 
+        Max & 0.5501 \\ 
+        SD ($\sigma^{HP}$) & 0.1707 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{HP} + 1 \sigma^{HP})$  & 0.1550 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{HP} + 2 \sigma^{HP})$ & 0.0240 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{HP} + 3 \sigma^{HP})$ & 0.0005 \\ 
+         \hline
+      \end{tabular}
+      \caption{Summary statistics and upper-tail shares of simulated correlations for HP filter.} 
+      \label{tab:q3_hp}
+   \end{table}
+
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw3_q3_hp.png}
+      \caption{Histogram of HP-filtered correlations.}
+      \label{fig:q3_hp}
+   \end{figure}
+
+   \newpage
+   \item The following results are for Baxter-King filter.
+   \begin{table}[ht]
+      \centering
+      \begin{tabular}{ll}
+        \hline
+      Statistic & Value \\ 
+        \hline
+      Min & -0.6671 \\ 
+        1st Qu. & -0.1432 \\ 
+        Median & 0.0135 \\ 
+        Mean ($\mu^{BK}$) & 0.0092 \\ 
+        3rd Qu. & 0.1619 \\ 
+        Max & 0.7416 \\ 
+        SD ($\sigma^{BK}$) & 0.2171 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{BK} + 1\sigma^{BK})$ & 0.1655 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{BK} + 2\sigma^{BK})$ & 0.0225 \\ 
+        $\mathbb{P}(\rho_{xy} > \mu^{BK} + 3\sigma^{BK})$ & 0.0005 \\ 
+         \hline
+      \end{tabular}
+      \caption{Summary statistics and upper-tail shares of BK-filtered correlations (T=120, reps=2000, K=12, periods [6,32]).} 
+      \label{tab:hw3_q3_bk}
+   \end{table}
+
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw3_q3_bk.png}
+      \caption{Histogram of BK-filtered correlations.}
+      \label{fig:q3_bk}
+   \end{figure}
+
+   \item Discussion: In both cases, the mean correlation is close to zero, as expected under independence. However, the distribution of $\rho_{xy}$ is dispersed indicated by the standard deviation values $0.1707$ (HP) and $0.2171$ (BK), and similar to a normal distribution, indicated by $\mathbb{P}(\rho_{xy} > \mu + z\sigma)$ values. For extreme values, correlations as large as $0.55$ (HP) and $0.74$ (BK) occur in the simulations. 
+
 \end{enumerate}
 
 
 \newpage
 \section*{Question 4}
 \begin{enumerate}[label=\alph*.]
-   \item 
+   \item The gain of $H^+$ is plotted in \ref{fig:4a}. The highest value is at around $|\omega| = 0.25 \in \left(\frac{2\pi}{32}, \frac{2\pi}{6}\right)$ which is in the range of the business cycle frequency. Therefore, $\{c_t\}$ will have more variation at the business cycle frequencies.
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw3_q4a_gain.png}
+      \caption{Gain of $H^+$}
+      \label{fig:4a}
+   \end{figure}
+
+   \item Since $c_t = H^+(L) y_t$, we have
+   \begin{align*}
+      s_c(\omega) = \left|H^+\left(e^-i\omega\right)\right|^2 s_y(\omega).
+   \end{align*}
+   Since $y_t = x_t - x_{t-1} = e_t \sim WN(0,\sigma^2)$, we have $s_y(\omega) = \frac{\sigma^2}{2\pi}$. Therefore, the spectrum of $\{c_t\}$ is
+   \begin{align*}
+      s_c(\omega) = \frac{\sigma^2}{2\pi} \left|H^+\left(e^-i\omega\right)\right|^2
+   \end{align*}
+
+   \item By definition, $s_c(\omega) = \frac{1}{2\pi} \sum_{j=-\infty}^{+\infty} \gamma_c(j) e^{-i\omega j}$. Multiply both sides by $e^{i \omega k}$ for some integer $k$ and integrate over $(-\pi, \pi]$:
+   \begin{align*}
+      \int^{\pi}_{-\pi} s_c(\omega) e^{i \omega k} d\omega &= \int^{\pi}_{-\pi} \frac{1}{2\pi}\sum_{j=-\infty}^{+\infty} \gamma_c(j)  e^{i\omega (k-j)} d\omega\\
+      &= \frac{1}{2\pi}\sum_{j=-\infty}^{+\infty} \gamma_c(j) \int^{\pi}_{-\pi} e^{i\omega (k-j)} d\omega \qquad \text{by LDCT}\\
+      &= \frac{1}{2\pi}\sum_{j=-\infty}^{+\infty} \gamma_c(j) \times 2 \int^{\pi}_{0} \cos\left((k-j)\omega\right) d\omega\\
+      &= \gamma_c(k),
+   \end{align*}
+   where the last line is by the periodicity of the $\cos(\cdot)$ function.
+
+   \item The table and figure below show the results of autocovariances.
+   
+   \begin{table}[H]
+      \centering
+      \begin{tabular}{rr}
+      \hline
+      $k$ & $\gamma_c(k)$ \\
+      \hline
+      0 & 1.668259408 \\
+      1 & 1.203349899 \\
+      2 & 0.807403465 \\
+      3 & 0.477351924 \\
+      4 & 0.208784655 \\
+      5 & -0.003618249 \\
+      6 & -0.165723093 \\
+      7 & -0.283644620 \\
+      8 & -0.363507014 \\
+      9 & -0.411257601 \\
+      10 & -0.432526914 \\
+      \hline
+      \end{tabular}
+      \caption{Autocovariances of $\{c_t\}$.}
+      \label{tab:4d}
+   \end{table}
+
+   \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=0.6\textwidth]{hw3_q4d_autocovariances.png}
+      \caption{Autocovariances of $c_t$.}
+      \label{fig:4d}
+   \end{figure}
 \end{enumerate}
 
 
