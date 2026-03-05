@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{hw1_q2b_surface.png}
+%     \caption{Optimal joint density f(p, d)}
+%     \label{fig:2b}
+% \end{figure}
+
+\title{ECON 5345 Homework 3 Report}
+\author{Harlly Zhou}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+    The FRED said that the TWEXBPA is no longer updated since some time around 2015, and it started to use RTWEXBGS "Real Broad Dollar Index" to substitute. So I used the RTWEXBGS instead.
+
+\newpage
+\section*{Question 2}
+\begin{enumerate}[label=\alph*.]
+   \item Note that we can write 
+   \begin{align*}
+    \operatorname{Var}(e) = [\Gamma_{ij}]_{i,j=1}^n \in \mathbb{R}^{Tn \times Tn},
+   \end{align*}
+   where $\Gamma_{ij} = \operatorname{Cov}(e_i, e_j) \in \mathbb{R}^{T \times T}$ is the $(i, j)$-th block of $\operatorname{Var}(e)$. Since $v_t$ is white noise, we have
+   \begin{align*}
+    \operatorname{Cov}(e_{it}, e_{j\tau}) = \left\{\begin{array}{ll}
+      \Omega_{ij} \in \mathbb{R}, & t=\tau\\
+      0, & \text{otherwise}
+    \end{array}\right.
+   \end{align*}
+   Therefore, we have $\Gamma_{ij} = \operatorname{diag}(\Omega_{ij}) = \Omega_{ij}I_T$. Hence,
+   \begin{align*}
+    \operatorname{Var}(e) = \Omega \otimes I_T.
+   \end{align*} 
+
+   \item Since $\Omega$ is a covariance matrix, it is positive definite. Hence, $\Omega$ is non-singular. By the properties of Kronecker product, we have
+   \begin{align*}
+    \hat{\beta}_{\text{GLS}} &= \left((I_n \otimes X')(\Omega^{-1} \otimes I_T) (I_n \otimes X)\right)^{-1} \left((I_n \otimes X')(\Omega^{-1} \otimes I_T) y \right)\\
+    &= (\Omega^{-1} \otimes X'X)^{-1} (\Omega^{-1} \otimes X') y\\
+    &= \left(\Omega \otimes (X'X)^{-1}\right)(\Omega^{-1} \otimes X') y \qquad \text{since $X'X$ is positive-definite}\\
+    &= \left(I_n \otimes (X'X)^{-1}X'\right) y\\
+    &= \left(I_n \otimes (X'X)^{-1}\right) (I_n \otimes X') y\\
+    &= \left(I_n \otimes (X'X)^{-1}\right) \left((I_n \otimes X)' y\right)\\
+    &= \left((I_n \otimes X)' (I_n \otimes X)\right)^{-1} \left((I_n \otimes X)' y\right)\\
+    &= \hat{\beta}_{\text{OLS}}.
+   \end{align*}
+\end{enumerate}
+
+\newpage
+\section*{Question 3}
+\begin{enumerate}[label=\alph*.]
+   \item 1
+\end{enumerate}
+
+\end{document}
