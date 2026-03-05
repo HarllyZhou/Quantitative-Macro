@@ -1,18 +1,9 @@
-## HW4 - Question 3
-## Three-variable quarterly VAR: Δlog(real GDP), Δlog(CPI), FFR
-## - Lag selection: AIC, BIC, sequential LR tests over p = 0..10
-##   using a fixed effective sample size (T-10) for all p
-## - Then (separately) estimate the VAR using vars::VAR() with the AIC-selected lag
-## - Cholesky IRFs to 1-sd FFR shock, horizons 0..20
-## - Error bands (5th/95th percentiles): parametric Monte Carlo vs bootstrap
-## - FEVD contribution of FFR shocks, horizons 0..20
-##
-## Data file (provided): hw4_q3.csv with columns:
-## observation_date, GDPC1, CPIAUCSL, FEDFUNDS
+## econ 5345 hw4 q3
 
 rm(list = ls())
 options(stringsAsFactors = FALSE)
 
+# Prepare the environment
 get_script_dir <- function() {
   args <- commandArgs(trailingOnly = FALSE)
   file_flag <- "--file="
@@ -47,7 +38,9 @@ library(zoo)
 library(ggplot2)
 library(tidyr)
 library(vars)
+library(tibble)
 
+# Function definition
 parse_fred_date <- function(x) as.Date(x)
 
 read_q3_data <- function(path) {
@@ -145,7 +138,7 @@ estimate_var_fixed <- function(Y, P, p, include_const = TRUE) {
     for (i in 1:p) {
       block <- B[start:(start + k - 1), , drop = FALSE] # k x k (row-lag form)
       B_blocks[[i]] <- block
-      A_list[[i]] <- t(block) # column-vector VAR convention
+      A_list[[i]] <- t(block)
       start <- start + k
     }
   }
@@ -244,7 +237,6 @@ ic_lr_fixed_sample <- function(Y, P = 10, include_const = TRUE, alpha = 0.05) {
 }
 
 lag_selection_table_fixed <- function(sel) {
-  # Combine IC table with sequential LR(p-1 vs p) results in one table.
   ic <- sel$ic_tbl
   lr <- sel$lr_tbl %>%
     transmute(
@@ -263,53 +255,19 @@ lag_selection_table_fixed <- function(sel) {
   out
 }
 
-to_latex_tabular <- function(df, caption = NULL, label = NULL, digits = 3) {
-  # Minimal LaTeX tabular (no extra dependencies).
-  fmt_num <- function(x) ifelse(is.na(x), "", formatC(x, format = "f", digits = digits))
-  fmt_int <- function(x) ifelse(is.na(x), "", as.character(as.integer(x)))
-
-  df_out <- df %>%
-    transmute(
-      p = fmt_int(.data$p),
-      n = fmt_int(.data$n),
-      logLik = fmt_num(.data$logLik),
-      AIC = fmt_num(.data$AIC),
-      BIC = fmt_num(.data$BIC),
-      LR = fmt_num(.data$LR),
-      pval = fmt_num(.data$LR_p)
-    )
-
-  header <- c("\\begin{table}[!htbp]",
-              "\\centering",
-              "\\begin{tabular}{r r r r r r r}",
-              "\\hline",
-              "p & n & logLik & AIC & BIC & LR & p-value \\\\",
-              "\\hline")
-
-  body <- apply(df_out, 1, function(r) paste(r, collapse = " & "))
-  body <- paste0(body, " \\\\")
-
-  footer <- c("\\hline",
-              "\\end{tabular}")
-
-  caplab <- character(0)
-  if (!is.null(caption)) caplab <- c(caplab, paste0("\\caption{", caption, "}"))
-  if (!is.null(label)) caplab <- c(caplab, paste0("\\label{", label, "}"))
-
-  endtbl <- "\\end{table}"
-
-  paste(c(header, body, footer, caplab, endtbl), collapse = "\n")
-}
-
 extract_from_vars_fit <- function(fit) {
-  A_list <- vars::Acoef(fit) # list of kxk matrices
-  c_vec <- as.numeric(vars::detcoef(fit)[, "const"])
+  A_list <- vars::Acoef(fit)
+  # vars::detcoef() is not exported in some installations.
+  # Extract intercepts directly from the per-equation regressions.
+  c_vec <- vapply(fit$varresult, function(m) {
+    cf <- stats::coef(m)
+    if ("const" %in% names(cf)) unname(cf[["const"]]) else 0
+  }, numeric(1))
   Sigma <- summary(fit)$covres
   list(A_list = A_list, c_vec = c_vec, Sigma = Sigma, p = fit$p, k = ncol(Sigma))
 }
 
 simulate_var_from_vars <- function(A_list, c_vec, Y0, innov) {
-  # Row recursion: y_t = c + sum_{i=1}^p y_{t-i} %*% t(A_i) + u_t
   Y0 <- as.matrix(Y0)
   innov <- as.matrix(innov)
   p <- length(A_list)
@@ -390,7 +348,6 @@ irf_bands_bootstrap_vars <- function(Y, fit, n_ahead = 20, B = 500, seed = 2) {
 
   Tobs <- nrow(Y)
   if (nrow(res) != (Tobs - p)) {
-    # In case vars drops extra rows for some reason, align to available residuals.
     Tobs <- nrow(res) + p
     Y <- Y[seq_len(Tobs), , drop = FALSE]
   }
@@ -417,7 +374,6 @@ irf_bands_bootstrap_vars <- function(Y, fit, n_ahead = 20, B = 500, seed = 2) {
 
 fevd_ffr_from_vars <- function(fit, n_ahead = 20) {
   mats <- extract_from_vars_fit(fit)
-  # Wrap into the minimal structure expected by fevd_ffr()
   est <- list(
     p = mats$p,
     k = mats$k,
@@ -445,8 +401,6 @@ ma_coefs <- function(A_list, H) {
 }
 
 ma_coefs_levels <- function(Phi) {
-  # Transform MA matrices so that the first two variables are cumulated (log-levels),
-  # while FFR remains in levels.
   H1 <- dim(Phi)[1]
   k <- dim(Phi)[2]
   out <- array(0, dim = dim(Phi))
@@ -480,7 +434,7 @@ irf_to_ffr_shock <- function(est, n_ahead = 20, shock_var = "ffr") {
   }
   colnames(resp) <- var_names
 
-  # Convert Δlog responses to log-level responses by cumulation (GDP and CPI only)
+
   resp[, "dlog_gdp"] <- cumsum(resp[, "dlog_gdp"])
   resp[, "dlog_cpi"] <- cumsum(resp[, "dlog_cpi"])
 
@@ -488,8 +442,6 @@ irf_to_ffr_shock <- function(est, n_ahead = 20, shock_var = "ffr") {
 }
 
 simulate_var_row <- function(est, Y_init, innov) {
-  # Row-vector simulation:
-  # y_t = c + sum_{i=1}^p y_{t-i} B_i + u_t
   Y_init <- as.matrix(Y_init)
   innov <- as.matrix(innov)
   Tn <- nrow(Y_init)
@@ -717,9 +669,7 @@ plot_fevd_ffr <- function(fevd_df, out_path) {
   invisible(p)
 }
 
-# -----------------------------
 # Main
-# -----------------------------
 
 data_path <- "hw4_q3.csv"
 end_tq <- zoo::as.yearqtr("2008 Q4")
@@ -732,16 +682,12 @@ raw <- read_q3_data(data_path)
 df <- make_var_dataset(raw, end_tq = end_tq)
 
 Y <- df %>%
-  select(dlog_gdp, dlog_cpi, ffr) %>%
+  dplyr::select(dlog_gdp, dlog_cpi, ffr) %>%
   as.data.frame()
 Y_mat <- as.matrix(Y)
 
-# -----------------------------
-# Part (a): fixed-sample lag selection (p = 0..10) + LaTeX table
-# -----------------------------
-
+# Part (a)
 part_a_out <- "hw4_q3_part_a_output.txt"
-part_a_tex <- "hw4_q3_part_a_lag_selection.tex"
 
 sink(part_a_out)
 cat("HW4 Question 3 - Part (a)\n")
@@ -760,27 +706,15 @@ print(tab_a)
 cat("\nAIC-selected p:", sel$aic_p, "\n")
 cat("BIC-selected p:", sel$bic_p, "\n")
 cat("LR-selected p:", sel$lr_p, "\n\n")
-
-latex_a <- to_latex_tabular(
-  tab_a,
-  caption = "Lag selection for VAR using fixed effective sample size $n = T-10$ (all $p$). Sequential LR tests compare $p-1$ vs $p$.",
-  label = "tab:hw4q3_lag_selection",
-  digits = 3
-)
-
-cat("LaTeX table output:\n\n")
-cat(latex_a, "\n")
 sink()
 
-writeLines(latex_a, part_a_tex)
 
-# -----------------------------
-# Part (b)-(d): estimate VAR with vars::VAR() using AIC-selected lag
-# -----------------------------
+# Part (b)-(c)
 
-part_bcd_out <- "hw4_q3_part_bcd_output.txt"
+
+part_bcd_out <- "hw4_q3_part_bc_output.txt"
 sink(part_bcd_out)
-cat("HW4 Question 3 - Parts (b)-(d)\n")
+cat("HW4 Question 3 - Parts (b)-(c)\n")
 cat("Using AIC-selected lag from Part (a): p* =", sel$aic_p, "\n\n")
 
 p_for_var <- as.integer(sel$aic_p)
@@ -821,10 +755,7 @@ plot_fevd_ffr(fevd_df = fevd_df, out_path = "hw4_q3_fevd_ffr.png")
 
 cat("\nSaved outputs:\n")
 cat("- Part (a) output:", part_a_out, "\n")
-cat("- Part (a) LaTeX table:", part_a_tex, "\n")
-cat("- Part (b)-(d) output:", part_bcd_out, "\n")
+cat("- Part (b)-(c) output:", part_bcd_out, "\n")
 cat("- Plots: hw4_q3_irf_ffrshock.png, hw4_q3_fevd_ffr.png\n")
 
-cat("\nNote for (iii): A 'price puzzle' (CPI rising after a contractionary policy shock)\n")
-cat("can arise from omitted information / inadequate identification; see Sims (1992).\n")
 sink()

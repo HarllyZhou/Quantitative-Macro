@@ -96,7 +96,128 @@
 \newpage
 \section*{Question 3}
 \begin{enumerate}[label=\alph*.]
-   \item 1
+   \item The values of BIC, AIC, and LRT up to $p=10$ are reported in the following table.
+
+   \begin{table}[H]
+   \centering
+   \caption{Lag selection for VAR (AIC/BIC) and sequential LR test \(p\)-values for \(H_0: p-1\) vs \(H_1: p\).}
+   \begin{tabular}{r r r r}
+   \hline
+   \(p\) & AIC & BIC & LR \(p\)-value \\
+   \hline
+   0  & 1982 & 1992 &  N/A \\
+   1  & 1323 & 1363 & \(7.06\times 10^{-140}\) \\
+   2  & 1301 & 1371 & \(8.00\times 10^{-6}\) \\
+   3  & 1270 & 1370 & \(1.38\times 10^{-7}\) \\
+   4  & 1278 & 1409 & \(4.08\times 10^{-1}\) \\
+   5  & 1266 & 1426 & \(3.25\times 10^{-4}\) \\
+   6  & 1261 & 1451 & \(6.88\times 10^{-3}\) \\
+   7  & 1264 & 1484 & \(7.86\times 10^{-2}\) \\
+   8  & 1277 & 1528 & \(8.97\times 10^{-1}\) \\
+   9  & 1283 & 1564 & \(2.23\times 10^{-1}\) \\
+   10 & 1265 & 1575 & \(3.29\times 10^{-5}\) \\
+   \hline
+   \end{tabular}
+   \end{table}
+   The AIC selects $p=6$, the BIC selects $p=1$, and the LRT selects $p=3$.
+
+   \newpage
+   \item Least squares estimation results of the VAR(6) model are reported in Table \ref{tab:q3b}.
+
+   \begin{table}[H]
+   \centering
+   \caption{VAR(6) least squares estimates. Each cell reports the coefficient (with significance stars) and the \(t\)-statistic in parentheses.}
+   \begin{tabular}{l c c c}
+   \hline
+   RHS regressor & \(\Delta \log(GDP_t)\) & \(\Delta \log(CPI_t)\) & \(FFR_t\) \\
+   \hline
+   \(\Delta \log(GDP_{t-1})\) & \shortstack{0.2213$^{**}$\\(2.890)} & \shortstack{0.0717\\(1.765)} & \shortstack{0.3751$^{***}$\\(5.171)} \\
+   \(\Delta \log(CPI_{t-1})\) & \shortstack{-0.0783\\(-0.465)} & \shortstack{0.4416$^{***}$\\(4.947)} & \shortstack{-0.0140\\(-0.088)} \\
+   \(FFR_{t-1}\)              & \shortstack{0.0638\\(0.809)} & \shortstack{0.1342$^{**}$\\(3.208)} & \shortstack{1.1156$^{***}$\\(14.937)} \\
+   \(\Delta \log(GDP_{t-2})\) & \shortstack{0.1430\\(1.809)} & \shortstack{-0.0254\\(-0.606)} & \shortstack{0.1976$^{**}$\\(2.639)} \\
+   \(\Delta \log(CPI_{t-2})\) & \shortstack{-0.1540\\(-0.828)} & \shortstack{0.0307\\(0.311)} & \shortstack{0.4786$^{**}$\\(2.717)} \\
+   \(FFR_{t-2}\)              & \shortstack{-0.3680$^{**}$\\(-3.243)} & \shortstack{-0.1069\\(-1.775)} & \shortstack{-0.5345$^{***}$\\(-4.972)} \\
+   \(\Delta \log(GDP_{t-3})\) & \shortstack{0.0018\\(0.022)} & \shortstack{0.0531\\(1.236)} & \shortstack{0.0990\\(1.292)} \\
+   \(\Delta \log(CPI_{t-3})\) & \shortstack{-0.0508\\(-0.271)} & \shortstack{0.4392$^{***}$\\(4.409)} & \shortstack{0.0231\\(0.130)} \\
+   \(FFR_{t-3}\)              & \shortstack{0.3456$^{**}$\\(2.862)} & \shortstack{0.0114\\(0.178)} & \shortstack{0.4932$^{***}$\\(4.312)} \\
+   \(\Delta \log(GDP_{t-4})\) & \shortstack{0.0684\\(0.886)} & \shortstack{0.0625\\(1.524)} & \shortstack{-0.0408\\(-0.557)} \\
+   \(\Delta \log(CPI_{t-4})\) & \shortstack{-0.0026\\(-0.014)} & \shortstack{-0.1674\\(-1.671)} & \shortstack{-0.2671\\(-1.494)} \\
+   \(FFR_{t-4}\)              & \shortstack{-0.1462\\(-1.194)} & \shortstack{-0.0637\\(-0.980)} & \shortstack{-0.1994\\(-1.718)} \\
+   \(\Delta \log(GDP_{t-5})\) & \shortstack{-0.0541\\(-0.690)} & \shortstack{-0.0076\\(-0.182)} & \shortstack{0.1830$^{*}$\\(2.463)} \\
+   \(\Delta \log(CPI_{t-5})\) & \shortstack{0.3090\\(1.667)} & \shortstack{0.1017\\(1.034)} & \shortstack{0.1916\\(1.091)} \\
+   \(FFR_{t-5}\)              & \shortstack{-0.0211\\(-0.176)} & \shortstack{0.1034\\(1.619)} & \shortstack{0.2911$^{*}$\\(2.553)} \\
+   \(\Delta \log(GDP_{t-6})\) & \shortstack{0.0778\\(1.030)} & \shortstack{0.0145\\(0.362)} & \shortstack{-0.0369\\(-0.516)} \\
+   \(\Delta \log(CPI_{t-6})\) & \shortstack{-0.0898\\(-0.523)} & \shortstack{0.0403\\(0.442)} & \shortstack{0.1392\\(0.856)} \\
+   \(FFR_{t-6}\)              & \shortstack{0.1043\\(1.283)} & \shortstack{-0.0738\\(-1.712)} & \shortstack{-0.2776$^{***}$\\(-3.605)} \\
+   Constant                   & \shortstack{0.6122$^{**}$\\(2.789)} & \shortstack{-0.0568\\(-0.487)} & \shortstack{-0.5384$^{*}$\\(-2.589)} \\
+   \hline
+   \end{tabular}
+   \vspace{0.5em}
+   \label{tab:q3b}
+   \caption*{\footnotesize Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1. $t$-values in parentheses.}
+   \end{table}
+
+   \newpage
+   \item The impulse responses are reported in the Table \ref{tab:3ci} with functions plotted with error bands in Figure \ref{fig:3ci-ii}. The Monte Carlo results and bootstrap results are plotted together, with blue bands for MonteCarlo and pink bands for bootstrap. Overlapping bands are colored in grey.
+   \begin{table}[H]
+   \centering
+   \caption{Impulse responses to a one-standard-deviation shock in \(FFR\) (Cholesky ordering \([\Delta \log GDP, \Delta \log CPI, FFR]\)). Responses of \(\log(GDP)\) and \(\log(CPI)\) are obtained by cumulating the responses of \(\Delta \log(GDP)\) and \(\Delta \log(CPI)\).}
+   \scriptsize
+   \begin{tabular}{r r r r}
+   \hline
+   Horizon \(h\) & \(\log(GDP)\) & \(\log(CPI)\) & \(FFR\) \\
+   \hline
+   0  &  0.0000 &  0.0000 & 0.7243 \\
+   1  &  0.0462 &  0.0972 & 0.8081 \\
+   2  & -0.1663 &  0.1745 & 0.5303 \\
+   3  & -0.2410 &  0.1882 & 0.4918 \\
+   4  & -0.2962 &  0.2141 & 0.4929 \\
+   5  & -0.4245 &  0.2762 & 0.5219 \\
+   6  & -0.4549 &  0.3013 & 0.4504 \\
+   7  & -0.4597 &  0.3049 & 0.2734 \\
+   8  & -0.4868 &  0.2972 & 0.2152 \\
+   9  & -0.4665 &  0.2717 & 0.1954 \\
+   10 & -0.4433 &  0.2604 & 0.1503 \\
+   11 & -0.4196 &  0.2457 & 0.1108 \\
+   12 & -0.3829 &  0.2128 & 0.0686 \\
+   13 & -0.3552 &  0.1898 & 0.0534 \\
+   14 & -0.3321 &  0.1703 & 0.0498 \\
+   15 & -0.3073 &  0.1470 & 0.0352 \\
+   16 & -0.2871 &  0.1308 & 0.0293 \\
+   17 & -0.2719 &  0.1143 & 0.0229 \\
+   18 & -0.2602 &  0.0972 & 0.0169 \\
+   19 & -0.2498 &  0.0854 & 0.0166 \\
+   20 & -0.2421 &  0.0734 & 0.0107 \\
+   \hline
+   \end{tabular}
+   \label{tab:3ci}
+   \end{table}
+
+   \medskip
+
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{hw4_q3_irf_ffrshock.png}
+    \caption{Impulse Responses to FFR Shock with Error Bands}
+    \label{fig:3ci-ii}
+   \end{figure}
+
+   The price level first increases and then decreases, revealing a hump-shape. This is referred to as the "price puzzle". The Fed reacts to the inflation expectation for a change in the FFR. The VAR here only includes three variables, which is no enough to capture the full set of variables or information used by the Fed. 
+
+   To solve the problem, we need to include commodity prices and other asset prices in the VAR. They are forward-looking variables, which, to some degree, capture Fed's information aoubt future macro fundamentals. 
+   
+   Barth \& Ramey (2002) introduces the "cost channel of monetary policy", arguing that when the FFR increases, the cost of holding inventories increases, which requires a rise in price level to compensate for firms' marginal cost.
+
+   The FEVD is plotted in Figure \ref{fig:3ciii}.
+
+   \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{hw4_q3_fevd_ffr.png}
+    \caption{FEVD of FFR Shock}
+    \label{fig:3ciii}
+   \end{figure}
+
+
 \end{enumerate}
 
 \end{document}

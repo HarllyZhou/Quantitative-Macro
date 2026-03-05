@@ -540,3 +540,26 @@ critical values 0.119 0.146  0.176 0.216
 
 
 Saved this output to: hw4_q1_test_output.txt 
+# Downloading packages -------------------------------------------------------
+- Downloading tidyr from CRAN ...               OK [790.1 Kb in 5.4s]
+- Downloading vars from CRAN ...                OK [406.7 Kb in 4.9s]
+- Downloading strucchange from CRAN ...         OK [934.7 Kb in 10s]
+- Downloading lmtest from CRAN ...              OK [396.5 Kb in 5.8s]
+Successfully downloaded 4 packages in 31 seconds.
+
+The following package(s) will be installed:
+- lmtest      [0.9-40]
+- sandwich    [3.1-1]
+- strucchange [1.5-4]
+- tidyr       [1.3.2]
+- vars        [1.6-1]
+These packages will be installed into "~/Desktop/Quantitative-Macro/renv/library/R-4.3/x86_64-apple-darwin20".
+
+
+# Installing packages --------------------------------------------------------
+- Installing tidyr ...                          OK [built from source and cached in 54s]
+- Installing sandwich ...                       OK [linked from cache]
+- Installing strucchange ...                    OK [installed binary and cached in 9.0s]
+- Installing lmtest ...                         OK [installed binary and cached in 9.5s]
+- Installing vars ...                           OK [installed binary and cached in 10s]
+Successfully installed 5 packages in 1.4 minutes.

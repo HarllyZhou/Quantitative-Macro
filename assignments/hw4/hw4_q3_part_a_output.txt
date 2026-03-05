@@ -1,0 +1,28 @@
+HW4 Question 3 - Part (a)
+Working directory: /Users/harlly/Desktop/Quantitative-Macro/assignments/hw4 
+Data: hw4_q3.csv 
+Sample end: 2008 Q4 
+Observations used (after differencing + NA drop): 218 
+Lag grid: p = 0..10
+Fixed effective sample for all p: n = T - 10
+
+Lag-selection table (IC + sequential LR), fixed sample:
+# A tibble: 11 × 8
+       p     n n_params logLik   AIC   BIC     LR       LR_p
+   <int> <int>    <dbl>  <dbl> <dbl> <dbl>  <dbl>      <dbl>
+ 1     0   208        3  -988. 1982. 1992.  NA    NA        
+ 2     1   208       12  -650. 1323. 1363. 677.    7.06e-140
+ 3     2   208       21  -630. 1301. 1371.  39.9   8.00e-  6
+ 4     3   208       30  -605. 1270. 1370.  49.4   1.38e-  7
+ 5     4   208       39  -600. 1278. 1409.   9.32  4.08e-  1
+ 6     5   208       48  -585. 1266. 1426.  30.8   3.25e-  4
+ 7     6   208       57  -573. 1261. 1451.  22.7   6.88e-  3
+ 8     7   208       66  -566. 1264. 1484.  15.5   7.86e-  2
+ 9     8   208       75  -564. 1277. 1528.   4.21  8.97e-  1
+10     9   208       84  -558. 1283. 1564.  11.8   2.23e-  1
+11    10   208       93  -540. 1265. 1575.  36.5   3.29e-  5
+
+AIC-selected p: 6 
+BIC-selected p: 1 
+LR-selected p: 3 
+

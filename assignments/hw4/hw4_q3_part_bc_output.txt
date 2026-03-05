@@ -1,0 +1,168 @@
+HW4 Question 3 - Parts (b)-(c)
+Using AIC-selected lag from Part (a): p* = 6 
+
+VAR estimation (vars::VAR) summary:
+
+VAR Estimation Results:
+========================= 
+Endogenous variables: dlog_gdp, dlog_cpi, ffr 
+Deterministic variables: const 
+Sample size: 212 
+Log Likelihood: -584.18 
+Roots of the characteristic polynomial:
+0.9194 0.9194 0.8178 0.8178 0.8081 0.8081 0.7961 0.7961 0.7318 0.7105 0.7105 0.703 0.703 0.5215 0.5215 0.5081 0.2295 0.2295
+Call:
+vars::VAR(y = Y, p = p_for_var, type = "const")
+
+
+Estimation results for equation dlog_gdp: 
+========================================= 
+dlog_gdp = dlog_gdp.l1 + dlog_cpi.l1 + ffr.l1 + dlog_gdp.l2 + dlog_cpi.l2 + ffr.l2 + dlog_gdp.l3 + dlog_cpi.l3 + ffr.l3 + dlog_gdp.l4 + dlog_cpi.l4 + ffr.l4 + dlog_gdp.l5 + dlog_cpi.l5 + ffr.l5 + dlog_gdp.l6 + dlog_cpi.l6 + ffr.l6 + const 
+
+             Estimate Std. Error t value Pr(>|t|)   
+dlog_gdp.l1  0.221325   0.076575   2.890  0.00429 **
+dlog_cpi.l1 -0.078277   0.168230  -0.465  0.64224   
+ffr.l1       0.063761   0.078835   0.809  0.41963   
+dlog_gdp.l2  0.143004   0.079032   1.809  0.07194 . 
+dlog_cpi.l2 -0.153975   0.185916  -0.828  0.40858   
+ffr.l2      -0.368046   0.113488  -3.243  0.00139 **
+dlog_gdp.l3  0.001802   0.080875   0.022  0.98225   
+dlog_cpi.l3 -0.050828   0.187707  -0.271  0.78685   
+ffr.l3       0.345554   0.120737   2.862  0.00467 **
+dlog_gdp.l4  0.068426   0.077245   0.886  0.37682   
+dlog_cpi.l4 -0.002566   0.188767  -0.014  0.98917   
+ffr.l4      -0.146207   0.122487  -1.194  0.23408   
+dlog_gdp.l5 -0.054143   0.078412  -0.690  0.49071   
+dlog_cpi.l5  0.308984   0.185316   1.667  0.09707 . 
+ffr.l5      -0.021146   0.120351  -0.176  0.86071   
+dlog_gdp.l6  0.077825   0.075530   1.030  0.30411   
+dlog_cpi.l6 -0.089830   0.171657  -0.523  0.60136   
+ffr.l6       0.104296   0.081290   1.283  0.20103   
+const        0.612249   0.219488   2.789  0.00581 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.8194 on 193 degrees of freedom
+Multiple R-Squared: 0.2549,	Adjusted R-squared: 0.1854 
+F-statistic: 3.668 on 18 and 193 DF,  p-value: 2.89e-06 
+
+
+Estimation results for equation dlog_cpi: 
+========================================= 
+dlog_cpi = dlog_gdp.l1 + dlog_cpi.l1 + ffr.l1 + dlog_gdp.l2 + dlog_cpi.l2 + ffr.l2 + dlog_gdp.l3 + dlog_cpi.l3 + ffr.l3 + dlog_gdp.l4 + dlog_cpi.l4 + ffr.l4 + dlog_gdp.l5 + dlog_cpi.l5 + ffr.l5 + dlog_gdp.l6 + dlog_cpi.l6 + ffr.l6 + const 
+
+             Estimate Std. Error t value Pr(>|t|)    
+dlog_gdp.l1  0.071721   0.040636   1.765  0.07915 .  
+dlog_cpi.l1  0.441598   0.089275   4.947 1.64e-06 ***
+ffr.l1       0.134218   0.041835   3.208  0.00156 ** 
+dlog_gdp.l2 -0.025427   0.041940  -0.606  0.54505    
+dlog_cpi.l2  0.030663   0.098660   0.311  0.75630    
+ffr.l2      -0.106922   0.060225  -1.775  0.07741 .  
+dlog_gdp.l3  0.053053   0.042918   1.236  0.21791    
+dlog_cpi.l3  0.439153   0.099611   4.409 1.72e-05 ***
+ffr.l3       0.011378   0.064072   0.178  0.85924    
+dlog_gdp.l4  0.062474   0.040992   1.524  0.12913    
+dlog_cpi.l4 -0.167358   0.100173  -1.671  0.09640 .  
+ffr.l4      -0.063731   0.065000  -0.980  0.32808    
+dlog_gdp.l5 -0.007565   0.041611  -0.182  0.85593    
+dlog_cpi.l5  0.101669   0.098342   1.034  0.30251    
+ffr.l5       0.103420   0.063867   1.619  0.10701    
+dlog_gdp.l6  0.014522   0.040081   0.362  0.71751    
+dlog_cpi.l6  0.040268   0.091094   0.442  0.65895    
+ffr.l6      -0.073848   0.043138  -1.712  0.08852 .  
+const       -0.056760   0.116476  -0.487  0.62659    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.4348 on 193 degrees of freedom
+Multiple R-Squared: 0.7003,	Adjusted R-squared: 0.6723 
+F-statistic: 25.05 on 18 and 193 DF,  p-value: < 2.2e-16 
+
+
+Estimation results for equation ffr: 
+==================================== 
+ffr = dlog_gdp.l1 + dlog_cpi.l1 + ffr.l1 + dlog_gdp.l2 + dlog_cpi.l2 + ffr.l2 + dlog_gdp.l3 + dlog_cpi.l3 + ffr.l3 + dlog_gdp.l4 + dlog_cpi.l4 + ffr.l4 + dlog_gdp.l5 + dlog_cpi.l5 + ffr.l5 + dlog_gdp.l6 + dlog_cpi.l6 + ffr.l6 + const 
+
+            Estimate Std. Error t value Pr(>|t|)    
+dlog_gdp.l1  0.37514    0.07255   5.171 5.79e-07 ***
+dlog_cpi.l1 -0.01401    0.15938  -0.088 0.930018    
+ffr.l1       1.11559    0.07469  14.937  < 2e-16 ***
+dlog_gdp.l2  0.19757    0.07487   2.639 0.008999 ** 
+dlog_cpi.l2  0.47859    0.17613   2.717 0.007181 ** 
+ffr.l2      -0.53452    0.10752  -4.972 1.46e-06 ***
+dlog_gdp.l3  0.09897    0.07662   1.292 0.198012    
+dlog_cpi.l3  0.02315    0.17783   0.130 0.896559    
+ffr.l3       0.49323    0.11438   4.312 2.58e-05 ***
+dlog_gdp.l4 -0.04078    0.07318  -0.557 0.577973    
+dlog_cpi.l4 -0.26714    0.17883  -1.494 0.136860    
+ffr.l4      -0.19939    0.11604  -1.718 0.087344 .  
+dlog_gdp.l5  0.18296    0.07429   2.463 0.014656 *  
+dlog_cpi.l5  0.19156    0.17556   1.091 0.276588    
+ffr.l5       0.29113    0.11402   2.553 0.011440 *  
+dlog_gdp.l6 -0.03694    0.07155  -0.516 0.606286    
+dlog_cpi.l6  0.13923    0.16262   0.856 0.392981    
+ffr.l6      -0.27759    0.07701  -3.605 0.000398 ***
+const       -0.53836    0.20794  -2.589 0.010357 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.7762 on 193 degrees of freedom
+Multiple R-Squared: 0.9489,	Adjusted R-squared: 0.9441 
+F-statistic: 198.9 on 18 and 193 DF,  p-value: < 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+         dlog_gdp dlog_cpi     ffr
+dlog_gdp  0.67137  0.03848 0.18689
+dlog_cpi  0.03848  0.18907 0.08024
+ffr       0.18689  0.08024 0.60256
+
+Correlation matrix of residuals:
+         dlog_gdp dlog_cpi    ffr
+dlog_gdp   1.0000   0.1080 0.2938
+dlog_cpi   0.1080   1.0000 0.2377
+ffr        0.2938   0.2377 1.0000
+
+
+
+IRFs: Cholesky ordering [dlog_gdp, dlog_cpi, ffr]
+Impulse: ffr (1-sd shock), horizons 0..20
+
+Baseline (point) IRF matrix (cumulated to log levels for GDP/CPI):
+         dlog_gdp   dlog_cpi        ffr
+ [1,]  0.00000000 0.00000000 0.72434099
+ [2,]  0.04618468 0.09721968 0.80807028
+ [3,] -0.16627132 0.17447388 0.53026407
+ [4,] -0.24100314 0.18817046 0.49176545
+ [5,] -0.29622831 0.21411280 0.49290331
+ [6,] -0.42446763 0.27621966 0.52193497
+ [7,] -0.45490157 0.30126261 0.45035195
+ [8,] -0.45972214 0.30492508 0.27344593
+ [9,] -0.48683164 0.29717468 0.21519067
+[10,] -0.46652382 0.27170764 0.19542729
+[11,] -0.44327822 0.26036676 0.15034770
+[12,] -0.41963511 0.24572458 0.11077983
+[13,] -0.38293081 0.21281246 0.06856485
+[14,] -0.35520423 0.18981455 0.05335818
+[15,] -0.33214969 0.17025958 0.04976395
+[16,] -0.30727668 0.14704060 0.03524323
+[17,] -0.28712459 0.13077204 0.02932234
+[18,] -0.27187115 0.11427842 0.02291965
+[19,] -0.26016406 0.09719880 0.01694325
+[20,] -0.24981986 0.08539837 0.01656549
+[21,] -0.24208828 0.07342779 0.01069364
+
+Parametric Monte Carlo bands...
+Kept draws: 500 out of 500 
+
+Residual bootstrap bands...
+Kept draws: 500 out of 500 
+
+Saved outputs:
+- Part (a) output: hw4_q3_part_a_output.txt 
+- Part (b)-(c) output: hw4_q3_part_bc_output.txt 
+- Plots: hw4_q3_irf_ffrshock.png, hw4_q3_fevd_ffr.png
