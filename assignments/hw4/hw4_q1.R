@@ -85,19 +85,26 @@ run_unit_root_suite <- function(x, series_name) {
   x <- x[is.finite(x)]
   if (length(x) < 20) stop("Too few observations for tests: ", series_name)
 
-  cat("\n============================================================\n")
-  cat(series_name, "\n")
-  cat("N =", length(x), "\n")
-  cat("============================================================\n\n")
-
   # Phillips-Perron
-  cat("\nPhillips-Perron (H0: unit root)\n")
-
   pp_const_tau <- urca::ur.pp(x, type = "Z-tau", model = "constant", lags = "short")
   pp_const_alpha <- urca::ur.pp(x, type = "Z-alpha", model = "constant", lags = "short")
   pp_trend_tau <- urca::ur.pp(x, type = "Z-tau", model = "trend", lags = "short")
   pp_trend_alpha <- urca::ur.pp(x, type = "Z-alpha", model = "trend", lags = "short")
 
+  # Augmented Dickey-Fuller
+  adf_drift <- urca::ur.df(x, type = "drift", selectlags = "AIC")
+  adf_trend <- urca::ur.df(x, type = "trend", selectlags = "AIC")
+
+  # KPSS
+  kpss_mu <- urca::ur.kpss(x, type = "mu")
+  kpss_tau <- urca::ur.kpss(x, type = "tau")
+
+  cat("\n============================================================\n")
+  cat(series_name, "\n")
+  cat("N =", length(x), "\n")
+  cat("============================================================\n\n")
+
+  cat("\nPhillips-Perron (H0: unit root)\n")
   cat("\nPP (Z-tau) with constant:\n")
   print(summary(pp_const_tau))
   cat("\nPP (Z-alpha) with constant:\n")
@@ -107,21 +114,13 @@ run_unit_root_suite <- function(x, series_name) {
   cat("\nPP (Z-alpha) with trend:\n")
   print(summary(pp_trend_alpha))
 
-  # Augmented Dickey-Fuller
-  cat("ADF (H0: unit root)\n")
-  adf_drift <- urca::ur.df(x, type = "drift", selectlags = "AIC")
-  adf_trend <- urca::ur.df(x, type = "trend", selectlags = "AIC")
+  cat("\nADF (H0: unit root)\n")
   cat("\nADF with drift (intercept):\n")
   print(summary(adf_drift))
   cat("\nADF with trend (intercept + trend):\n")
   print(summary(adf_trend))
 
-  
-
-  # KPSS 
   cat("\nKPSS (H0: stationarity)\n")
-  kpss_mu <- urca::ur.kpss(x, type = "mu")
-  kpss_tau <- urca::ur.kpss(x, type = "tau")
   cat("\nKPSS level-stationary (mu):\n")
   print(summary(kpss_mu))
   cat("\nKPSS trend-stationary (tau):\n")
