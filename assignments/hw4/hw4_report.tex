@@ -27,16 +27,16 @@
 \maketitle
 
 \section*{Question 1}
-    The FRED said that the TWEXBPA is no longer updated since some time around 2015, and it started to use RTWEXBGS "Real Broad Dollar Index" to substitute. So I used the RTWEXBGS instead.
+    The FRED said that the TWEXBPA is no longer updated since some time around 2015, and it started to use RTWEXBGS ``Real Broad Dollar Index" to substitute. So I used the RTWEXBGS instead. The following table reports the test statistics and critical values for the unit root tests on log levels.
 
     \begin{table}[H]
     \centering
-    \caption{Unit root / stationarity tests on log levels (test statistic and critical values).}
+    \caption{Unit root tests on log levels (test statistic and critical values).}
     \begin{tabular}{l l r r r r}
     \hline
     Series & Test (spec.) & Stat & CV(1\%) & CV(5\%) & CV(10\%) \\
     \hline
-    \multicolumn{6}{l}{\textit{Panel A: log(RTWEXBGS), monthly (N=242)}} \\
+    \multicolumn{6}{l}{\textit{Panel A: log(dollar index), monthly (N=242)}} \\
     RTWEXBGS & PP (Z-$\tau$, const.) & -0.9725 & -3.4589 & -2.8736 & -2.5731 \\
     RTWEXBGS & PP (Z-$\tau$, trend)  & -2.8287 & -3.9993 & -3.4297 & -3.1381 \\
     RTWEXBGS & ADF ($\tau_2$, drift) & -1.2374 & -3.4600 & -2.8800 & -2.5700 \\
@@ -44,7 +44,7 @@
     RTWEXBGS & KPSS ($\mu$)          &  3.7950 &  0.7390 &  0.4630 &  0.3470 \\
     RTWEXBGS & KPSS ($\tau$)         &  0.5219 &  0.2160 &  0.1460 &  0.1190 \\
     \hline
-    \multicolumn{6}{l}{\textit{Panel B: log(GDPC1), quarterly (N=316)}} \\
+    \multicolumn{6}{l}{\textit{Panel B: log(real GDP), quarterly (N=316)}} \\
     GDPC1 & PP (Z-$\tau$, const.) & -2.2491 & -3.4528 & -2.8709 & -2.5717 \\
     GDPC1 & PP (Z-$\tau$, trend)  & -1.3899 & -3.9908 & -3.4256 & -3.1357 \\
     GDPC1 & ADF ($\tau_2$, drift) & -2.3118 & -3.4400 & -2.8700 & -2.5700 \\
@@ -54,6 +54,12 @@
     \hline
     \end{tabular}
     \end{table}
+
+    For the dollar index, the Phillips-Perron test fails to reject the null of unit root at 10\% significance for both drift model and trend model. The augmented Dickey-Fuller test fails to reject the null of unit root at 10\% significance for the drift model and rejects the null of unit root at 10\% significance for the trend model. The KPSS test rejects the null of both level and trend stationarity at 1\% significance.
+
+    For the real GDP, the Phillips-Perron test fails to reject the null of unit root at 10\% significance for both drift model and trend model. The augmented Dickey-Fuller test rejects the null of unit root at 10\% significance for the drift model, and fails to reject the null of unit root at 10\% significance for the trend model. The KPSS test rejects the null of both level and trend stationarity at 1\% significance.
+
+    Results from different tests can vary, and results can be different for the same test with different specifications. In this case, we may do various tests to get a better understanding of the data, and choose whether to reject unit root based on a majority rule.
 
 \newpage
 \section*{Question 2}
