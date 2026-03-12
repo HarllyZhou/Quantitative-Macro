@@ -15,6 +15,10 @@ set.seed(5345)
 B_mc <- 2000            # Parametric Monte-Carlo draws for IRF bands
 B_boot <- 2000          # Bootstrap draws for IRF bands
 
+# Subsample for the additional IRF requested (inclusive)
+irf_subsample_start <- as.Date("1974-01-01")
+irf_subsample_end   <- as.Date("1990-12-31")
+
 ## Variable ordering for Q3 (Cholesky)
 order_q3 <- c("GDPC1_PCH", "GDPDEF_PCH", "TWEXM_PCH", "FEDFUNDS")
 ## Variable ordering for Q4 (Cholesky)
@@ -244,9 +248,9 @@ pretty_regressor_hw5 <- function(x) {
     lag <- as.integer(r[3])
     base_tex <- switch(
       base,
-      dlog_rgdp_100 = "\\\\Delta\\\\log(Real\\\\ GDP)",
-      dlog_defl_100 = "\\\\Delta\\\\log(GDP\\\\ Deflator)",
-      dlog_exr_100  = "\\\\Delta\\\\log(EXR)",
+      dlog_rgdp_100 = "\\Delta\\log(Real\\ GDP)",
+      dlog_defl_100 = "\\Delta\\log(GDP\\ Deflator)",
+      dlog_exr_100  = "\\Delta\\log(EXR)",
       ffr           = "FFR",
       base
     )
@@ -296,7 +300,7 @@ write_var_coef_table_tex <- function(fit, file, caption, label, dep_labels = NUL
   cells <- matrix("", nrow = nrow(beta), ncol = ncol(beta))
   for (i in 1:nrow(beta)) {
     for (j in 1:ncol(beta)) {
-      cells[i, j] <- sprintf("\\\\shortstack{%.4f%s\\\\\\\\(%.3f)}", beta[i, j], stars[i, j], tval[i, j])
+      cells[i, j] <- sprintf("\\shortstack{%.4f%s\\\\(%.3f)}", beta[i, j], stars[i, j], tval[i, j])
     }
   }
 
@@ -613,6 +617,28 @@ plot_irf_grid(
   main_title = paste0("IRFs to 1-sd FFR shock (Cholesky, ordering: RGDP, DEFL, EXR, FFR) | VAR(", p_aic, ")"),
   file = file.path(out_dir, "hw5_irf_q3_order_mc_vs_boot.png")
 )
+
+# Additional IRF (Q3 ordering) using only 1974–1990 subsample
+sub_mask <- dates >= irf_subsample_start & dates <= irf_subsample_end
+Y_q3_sub <- Y_q3[sub_mask, , drop = FALSE]
+if (nrow(Y_q3_sub) > p_aic + 5) {
+  fit_q3_sub <- estimate_var_ols(Y_q3_sub, p = p_aic, drop_lags = p_aic, include_const = TRUE)
+  irf_q3_sub_raw <- compute_irf_structural(fit_q3_sub$A, fit_q3_sub$Sigma_mle, H = H, shock_index = shock_idx_q3)
+  irf_q3_sub <- cumulate_irf_levels(irf_q3_sub_raw$irf, cumulate_idx = cumulate_idx_default)
+
+  plot_irf_grid(
+    irf = irf_q3_sub,
+    bands1 = NULL,
+    bands2 = NULL,
+    var_names = c("log(RGDP) (cum.)", "log(Deflator) (cum.)", "log(EXR) (cum.)", "FFR"),
+    main_title = paste0(
+      "IRFs to 1-sd FFR shock (Q3 ordering) | Subsample 1974–1990 | VAR(", p_aic, ")"
+    ),
+    file = file.path(out_dir, "hw5_irf_q3_order_1974_1990.png")
+  )
+} else {
+  warning("Subsample 1974–1990 too short for VAR(", p_aic, "); skipping subsample IRF.")
+}
 
 fevd_q3 <- compute_fevd(irf_q3_raw$Theta, shock_index = shock_idx_q3, H = H)
 plot_fevd_grid(

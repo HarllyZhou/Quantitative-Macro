@@ -11,6 +11,7 @@
 \usepackage{subcaption}
 \usepackage{enumitem}
 \usepackage{makecell}
+\usepackage{hyperref}
 
 % \begin{figure}[htbp]
 %     \centering
@@ -247,7 +248,26 @@
         \caption{IRF for the $VAR(6)$ model with new order.}
         \label{fig:q4_irf}
     \end{figure}
-    
+
+    The IRFs are similar to the previous results. According to the paper, the Cholesky ordering tends to matter for where the policy instrument is. In these two questions, the policy instrument FFR is always put as the last variable, and the ordering only changes for the remaining variables. Therefore, the result does not change a lot.
+
+    \item The empirical responses contradicts with the Bornbusch model and the Eichenbaum-Evans paper. The EXR index at time $t$, $I_t$, is given by
+    \begin{align*}
+        I_t = I_{t-1} \prod_{j=1}^{J_t} \left(\frac{e_{j,t}}{e_{j,t-1}}\right)^{\omega_{j,t}},
+    \end{align*}
+    where $J_t$ is the number of foreign currencies, $e_{j,t}$ is the price of US dollars \textbf{in terms of the foreign currency $j$}, and $\omega_{j,t}$ is the weight of the foreign currency $j$ in the basket.\footnote{See \url{https://www.federalreserve.gov/pubs/feds/2000/200006/200006pap.pdf} for this definition.} So when the exchange rate increases, the US dollar appreciates. The overshooting result argues that when FFR increases, the US dollar should appreciate and keep appreciating for a while. However, the empirical responses in question 3 and 4 shows that the US dollar depreciates for a year and then starts to appreciate back.
+
+    Two possible reasons are as follows
+    \begin{enumerate}[label=\roman*.]
+        \item In their paper, commodity prices are included, while we do not. Commodity prices are forward-looking variables, which may capture some of the Fed's information when they consider the FFR as an instrument.
+        \item The paper was in the 1990s. In particular, the Eichenbaum-Evans papers used the data from 1974 to 1990. Therefore, I also plotted the IRF for this period. And We do observe an appreciation after 1 quarter. However, there is still a considerable size of depreciation after around 1 year.
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=0.6\textwidth]{hw5_irf_q3_order_1974_1990.png}
+            \caption{IRF for 1974-1990 data.}
+            \label{fig:q5_irf}
+        \end{figure}
+    \end{enumerate}
     
 \end{enumerate}
 
