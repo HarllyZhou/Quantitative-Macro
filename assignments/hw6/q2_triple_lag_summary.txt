@@ -94,4 +94,4 @@ dy  0.000000  0.010662
 z  -5.924724 -5.267664
 
 Bootstrap successful replications:
-[1] 500
+[1] 2000

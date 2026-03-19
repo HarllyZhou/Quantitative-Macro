@@ -39,7 +39,7 @@ if (!dir.exists(local_r_lib)) {
 
 MAX_LAG_BIC <- 12
 H_MAX <- 50
-BOOT_RUNS <- 500
+BOOT_RUNS <- 2000
 BOOT_SEED <- 12345
 
 # packages ----------------------------------------------------
