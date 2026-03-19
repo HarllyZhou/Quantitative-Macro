@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{makecell}
+\usepackage{hyperref}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{hw1_q2b_surface.png}
+%     \caption{Optimal joint density f(p, d)}
+%     \label{fig:2b}
+% \end{figure}
+
+\title{ECON 5345 Homework 6 Report}
+\author{Harlly Zhou}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+\begin{enumerate}[label=\alph*.]
+    \item Since $\Omega$ has a Cholesky decompositive, it is of full rank, denoted by $n$. Then
+    \begin{align*}
+        \operatorname{rank}(\Omega) = \operatorname{rank}(C'C) = \operatorname{rank}(C) = n.
+    \end{align*}
+    Since $C$ is full rank, it is invertible.
+
+    \item Taking variance of $e_t$ gives
+    \begin{align*}
+        CC' = \Omega = \operatorname{Var}(e_t) &= \operatorname{Var}(D(0)v_t)\\
+        &= D(0) \operatorname{Var}(v_t) D(0)'\\
+        &= D(0) D(0)'.
+    \end{align*}
+    Therefore, $R = C^{-1} D(0) = C'[D(0)']^{-1}$. It follows that
+    \begin{align*}
+        RR' = C'[D(0)']^{-1} D(0)(C')^{-1} = I.
+    \end{align*}
+
+    \item It is immediate from simple linear algebra:
+    \begin{align*}
+        R_O(\theta)
+        \begin{bmatrix}
+            1 & 0 \\
+            0 & -1
+        \end{bmatrix} = \begin{bmatrix}
+            \cos (\theta) & -(-\sin (\theta)) \\
+            \sin (\theta) & -\cos (\theta)
+        \end{bmatrix}
+        = R_E(\theta).
+    \end{align*}
+    Define $J= \begin{bmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{bmatrix}$. Note that $J$ only flips the sign of the second shock. Suppose $R = R_E(\theta)$. Then we have
+    \begin{align*}
+        e_t = C R_E(\theta)v_t = C R_O(\theta) J^{-1} v_t.
+    \end{align*}
+    We can redefine the strutural shock to be $J^{-1} v_t$, and that is WLOG since the identification is up to signs.
+\end{enumerate}
+
+\newpage
+\section*{Question 2}
+
+\end{document}
