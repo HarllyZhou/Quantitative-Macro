@@ -1,0 +1,81 @@
+Question 2 case: baseline 
+
+Lag length p = 2 
+
+Reduced-form VAR summary:
+
+VAR Estimation Results:
+========================= 
+Endogenous variables: dy, z 
+Deterministic variables: const 
+Sample size: 310 
+Log Likelihood: 799.154 
+Roots of the characteristic polynomial:
+0.8752 0.4721 0.3254 0.0319
+Call:
+vars::VAR(y = Y, p = p, type = "const")
+
+
+Estimation results for equation dy: 
+=================================== 
+dy = dy.l1 + z.l1 + dy.l2 + z.l2 + const 
+
+       Estimate Std. Error t value Pr(>|t|)    
+dy.l1  0.471558   0.080824   5.834 1.38e-08 ***
+z.l1   0.008510   0.001320   6.445 4.50e-10 ***
+dy.l2  0.201878   0.054796   3.684 0.000271 ***
+z.l2  -0.007166   0.001320  -5.428 1.16e-07 ***
+const -0.005190   0.002282  -2.275 0.023627 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.01022 on 305 degrees of freedom
+Multiple R-Squared: 0.164,	Adjusted R-squared: 0.153 
+F-statistic: 14.96 on 4 and 305 DF,  p-value: 3.565e-11 
+
+
+Estimation results for equation z: 
+================================== 
+z = dy.l1 + z.l1 + dy.l2 + z.l2 + const 
+
+       Estimate Std. Error t value Pr(>|t|)    
+dy.l1 -33.56973    5.02806  -6.676 1.16e-10 ***
+z.l1    0.51840    0.08214   6.311 9.76e-10 ***
+dy.l2 -10.27920    3.40885  -3.015  0.00278 ** 
+z.l2    0.38612    0.08213   4.702 3.91e-06 ***
+const   0.88071    0.14196   6.204 1.79e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.6361 on 305 degrees of freedom
+Multiple R-Squared: 0.8614,	Adjusted R-squared: 0.8596 
+F-statistic: 473.8 on 4 and 305 DF,  p-value: < 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+           dy         z
+dy  0.0001045 -0.004678
+z  -0.0046779  0.404610
+
+Correlation matrix of residuals:
+        dy       z
+dy  1.0000 -0.7192
+z  -0.7192  1.0000
+
+
+
+Contemporaneous impact matrix A (columns: demand, supply):
+      demand   supply
+dy  0.008737 0.005312
+z  -0.620508 0.139930
+
+Long-run impact matrix D(1) (columns: demand, supply):
+     demand    supply
+dy  0.00000  0.007715
+z  -6.49898 -2.077443
+
+Bootstrap successful replications:
+[1] 500

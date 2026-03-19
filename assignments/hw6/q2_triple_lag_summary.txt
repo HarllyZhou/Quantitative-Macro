@@ -1,0 +1,97 @@
+Question 2 case: triple_lag 
+
+Lag length p = 6 
+
+Reduced-form VAR summary:
+
+VAR Estimation Results:
+========================= 
+Endogenous variables: dy, z 
+Deterministic variables: const 
+Sample size: 306 
+Log Likelihood: 798.508 
+Roots of the characteristic polynomial:
+0.919 0.7373 0.7373 0.6653 0.6653 0.6388 0.6388 0.5954 0.5954 0.4664 0.4664 0.2177
+Call:
+vars::VAR(y = Y, p = p, type = "const")
+
+
+Estimation results for equation dy: 
+=================================== 
+dy = dy.l1 + z.l1 + dy.l2 + z.l2 + dy.l3 + z.l3 + dy.l4 + z.l4 + dy.l5 + z.l5 + dy.l6 + z.l6 + const 
+
+       Estimate Std. Error t value Pr(>|t|)    
+dy.l1  0.437083   0.084836   5.152 4.74e-07 ***
+z.l1   0.008568   0.001348   6.356 7.91e-10 ***
+dy.l2  0.295660   0.088595   3.337 0.000955 ***
+z.l2  -0.004849   0.001863  -2.603 0.009724 ** 
+dy.l3  0.077099   0.089870   0.858 0.391652    
+z.l3  -0.001065   0.001877  -0.567 0.570944    
+dy.l4  0.156465   0.090193   1.735 0.083831 .  
+z.l4   0.001600   0.001881   0.851 0.395719    
+dy.l5 -0.016417   0.089723  -0.183 0.854944    
+z.l5  -0.004132   0.001882  -2.195 0.028918 *  
+dy.l6 -0.006393   0.056516  -0.113 0.910010    
+z.l6   0.001117   0.001421   0.785 0.432807    
+const -0.006547   0.003044  -2.150 0.032340 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.01022 on 293 degrees of freedom
+Multiple R-Squared: 0.184,	Adjusted R-squared: 0.1506 
+F-statistic: 5.506 on 12 and 293 DF,  p-value: 1.774e-08 
+
+
+Estimation results for equation z: 
+================================== 
+z = dy.l1 + z.l1 + dy.l2 + z.l2 + dy.l3 + z.l3 + dy.l4 + z.l4 + dy.l5 + z.l5 + dy.l6 + z.l6 + const 
+
+        Estimate Std. Error t value Pr(>|t|)    
+dy.l1 -33.431620   5.308666  -6.298 1.10e-09 ***
+z.l1    0.487689   0.084353   5.782 1.89e-08 ***
+dy.l2 -16.045120   5.543865  -2.894  0.00409 ** 
+z.l2    0.286803   0.116593   2.460  0.01448 *  
+dy.l3  -3.843179   5.623674  -0.683  0.49490    
+z.l3    0.127474   0.117485   1.085  0.27880    
+dy.l4  -4.426156   5.643846  -0.784  0.43353    
+z.l4   -0.002032   0.117680  -0.017  0.98624    
+dy.l5   5.634868   5.614449   1.004  0.31638    
+z.l5    0.139634   0.117784   1.186  0.23677    
+dy.l6  -0.511949   3.536547  -0.145  0.88500    
+z.l6   -0.147510   0.088947  -1.658  0.09831 .  
+const   1.014067   0.190508   5.323 2.03e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.6396 on 293 degrees of freedom
+Multiple R-Squared: 0.8641,	Adjusted R-squared: 0.8586 
+F-statistic: 155.3 on 12 and 293 DF,  p-value: < 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+           dy         z
+dy  0.0001045 -0.004742
+z  -0.0047425  0.409042
+
+Correlation matrix of residuals:
+        dy       z
+dy  1.0000 -0.7255
+z  -0.7255  1.0000
+
+
+
+Contemporaneous impact matrix A (columns: demand, supply):
+      demand    supply
+dy  0.007332  0.007121
+z  -0.639519 -0.007545
+
+Long-run impact matrix D(1) (columns: demand, supply):
+      demand    supply
+dy  0.000000  0.010662
+z  -5.924724 -5.267664
+
+Bootstrap successful replications:
+[1] 500
