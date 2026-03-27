@@ -1,0 +1,89 @@
+
+====================================
+Question 2(a)
+====================================
+State vector:
+z_t = (y_t, y_{t-1}, e_t, e_{t-1})'
+
+Transition matrix A:
+     [,1] [,2] [,3] [,4]
+[1,]  0.8    0  0.4    0
+[2,]  1.0    0  0.0    0
+[3,]  0.0    0  0.0    0
+[4,]  0.0    0  1.0    0
+
+Loading vector B:
+     [,1]
+[1,]    1
+[2,]    0
+[3,]    1
+[4,]    0
+
+Observation matrix H:
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+
+====================================
+Question 2(b)
+====================================
+
+------------------------------------
+Sample size: T50 
+------------------------------------
+Convergence code: 0 
+Log-likelihood: -101.7544 
+
+Estimates:
+alpha   = 0.589537 
+theta   = 0.464185 
+sigma   = 1.474463 
+sigma^2 = 2.174041 
+
+Standard errors:
+se(alpha) = 0.131557 
+se(theta) = 0.152293 
+se(sigma) = 0.151034 
+
+------------------------------------
+Sample size: T100 
+------------------------------------
+Convergence code: 0 
+Log-likelihood: -199.3829 
+
+Estimates:
+alpha   = 0.79599 
+theta   = 0.423433 
+sigma   = 1.589807 
+sigma^2 = 2.527485 
+
+Standard errors:
+se(alpha) = 0.069288 
+se(theta) = 0.11063 
+se(sigma) = 0.113675 
+
+------------------------------------
+Sample size: T500 
+------------------------------------
+Convergence code: 0 
+Log-likelihood: -1001.95 
+
+Estimates:
+alpha   = 0.783504 
+theta   = 0.389824 
+sigma   = 1.756465 
+sigma^2 = 3.085168 
+
+Standard errors:
+se(alpha) = 0.030634 
+se(theta) = 0.046632 
+se(sigma) = 0.055658 
+
+Summary table for part (b):
+ sample alpha_hat theta_hat sigma_hat sigma2_hat   se_alpha   se_theta
+    T50 0.5895370 0.4641849  1.474463   2.174041 0.13155702 0.15229350
+   T100 0.7959905 0.4234334  1.589807   2.527485 0.06928845 0.11063009
+   T500 0.7835043 0.3898236  1.756465   3.085168 0.03063360 0.04663231
+   se_sigma     loglik convergence
+ 0.15103388  -101.7544           0
+ 0.11367485  -199.3829           0
+ 0.05565791 -1001.9500           0
