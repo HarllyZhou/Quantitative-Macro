@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{hw1_q2b_surface.png}
+%     \caption{Optimal joint density f(p, d)}
+%     \label{fig:2b}
+% \end{figure}
+
+\title{ECON 5345 Homework 8 Report}
+\author{Harlly Zhou}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[label=(\alph*)]
+    \item Combining the first three constraints, we have
+    \begin{align}\label{eq:comb_cons}
+        Z_t K_{t-1}^{\alpha} L_t^{1-\alpha} = C_t + [K_t - (1-\delta)K_{t-1}] + \frac{\phi}{2} \left( \frac{K_t}{K_{t-1}} - 1 \right)^2 K_{t-1}.
+    \end{align}
+    Then the maximization problem is
+    \begin{align}
+        \max_{C_t, K_t, L_t} \mathbb{E} \sum_{t=0}^{+\infty} \beta^t \bigg\{\frac{C_t^{1-\sigma}}{1-\sigma} - \frac{\xi L_t^{1+1/\eta}}{1+1/\eta}\bigg\},
+    \end{align}
+    subject to constraint \eqref{eq:comb_cons}.
+
+    The Lagrangian is
+    \begin{align}\label{eq:lagrangian}
+        \mathcal{L} = \mathbb{E} \sum_{t=0}^{+\infty} &\beta^t \Bigg\{ \bigg[\frac{C_t^{1-\sigma}}{1-\sigma} - \frac{\xi L_t^{1+1/\eta}}{1+1/\eta}\bigg] \notag \\
+        &+ \lambda_t \bigg[Z_t K_{t-1}^{\alpha} L_t^{1-\alpha} - C_t - [K_t - (1-\delta)K_{t-1}] - \frac{\phi}{2} \left( \frac{K_t}{K_{t-1}} - 1 \right)^2 K_{t-1}\bigg]\Bigg\},
+    \end{align}
+    where $\lambda_t$ is the attached Lagrange multiplier. Taking FOCs with respect to $C_t$, $K_t$, and $L_t$, we get
+    \begin{align}
+        &[C_t]: \quad C_t^{-\sigma} = \lambda_t, \label{eq:foc_c}\\
+        &[K_t]: \quad \lambda_t \left[\phi\left(\frac{K_t}{K_{t-1}} - 1\right) - 1\right] \notag \\
+        & \qquad \quad + \beta \mathbb{E}_t\lambda_{t+1} \left\{\alpha \frac{Y_{t+1}}{K_t} + (1-\delta) + \frac{\phi}{2} \left[1-\left(\frac{K_{t+1}}{K_t}\right)^2\right]\right\} = 0, \label{eq:foc_k}\\
+        &[L_t]: \quad -\xi L_t^{1/\eta} + \lambda_t (1-\alpha) \frac{Y_t}{L_t} = 0. \label{eq:foc_l}
+    \end{align}
+
+    \item Without stochasticity, we normalize $Z = 1$. Denote $X^*$ as the steady state value of a variable $X$. We need to solve for $(C^*, K^*, L^*, I^*, Y^*)$, and the prices $(R^*, W^*)$ where $R^*$ is the capital rental rate and $W^*$ is the wage rate. Substituting \eqref{eq:foc_c} into \eqref{eq:foc_k} and \eqref{eq:foc_l}, together with the constraints and the expressions for capital rental rate and wage rate, we get the system:
+    \begin{align}
+        R^* + (1-\delta) &= \frac{1}{\beta}, \label{eq:ss_foc_k}\\
+        \xi (L^*)^{1/\eta} (C^*)^{\sigma} &= W^*, \label{eq:ss_foc_l}\\
+        Y^* = (K^*)^{\alpha} (L^*)^{1-\alpha}, \label{eq:ss_prod}\\
+        Y^* = C^* + I^*, \label{eq:ss_consumption_investment}\\
+        I^* = \delta K^*, \label{eq:ss_lom}\\
+        R^* = \alpha \frac{Y^*}{K^*}, \label{eq:ss_mpk}\\
+        W^* = (1-\alpha) \frac{Y^*}{L^*}, \label{eq:ss_mpl}
+    \end{align}
+    where \eqref{eq:ss_consumption_investment} is derived by plugging the LoM. With 7 variables and 7 equations, the systme is just-solvable.
+
+    \item Denote $\hat{x}_t = \frac{X_t - X^*}{X^*}$. Combining \eqref{eq:foc_c} and \eqref{eq:foc_k}, we can log linearize the derived FOC of $K_t$ to get
+    \begin{align}\label{eq:ll_foc_k}
+        \mathbb{E}_t \hat{c}_{t+1} + \beta \bigg[ \hat{k}_t [(\alpha - 1)R^* + (1-\delta)K^* + \phi] - \mathbb{E}_t \hat{k}_{t+1} + (1-\alpha) R^* & \mathbb{E}_t \hat{\ell}_{t+1} \bigg] \notag \\
+        & = \phi (\hat{k}_{t-1} - \hat{k}_t),
+    \end{align}
+    where \eqref{eq:ss_foc_k} is used to substitute $R^* + (1-\delta)$.
+
+    Combining \eqref{eq:foc_c} and \eqref{eq:foc_l}, we can log linearize the derived FOC of $L_t$ to get
+    \begin{align}\label{eq:ll_foc_l}
+        (1+1/\eta) \hat{\ell}_t = -\sigma \hat{c}_t + \hat{y}_t.
+    \end{align}
+    
+    The production function can be log linearized as
+    \begin{align}\label{eq:ll_prod}
+        \hat{y}_t = \hat{z}_t +\alpha \hat{k}_t + (1-\alpha) \hat{\ell}_t.
+    \end{align}
+
+    The consumption-investment equation can be log linearized as
+    \begin{align}\label{eq:ll_consumption_investment}
+        \hat{y}_t = \hat{c}_t \frac{C^*}{Y^*} + \hat{\iota}_t \frac{I^*}{Y^*}.
+    \end{align}
+
+    The LoM can be log linearized as
+    \begin{align}\label{eq:ll_lom}
+        \hat{k}_t = (1-\delta) \hat{k}_{t-1} + \hat{\iota}_t.
+    \end{align}
+
+    The prices can be log linearized as
+    \begin{align}
+        \hat{r}_t = \hat{y}_t - \hat{k}_t, \label{eq:ll_mpk}\\
+        \hat{w}_t = \hat{y}_t - \hat{\ell}_t. \label{eq:ll_mpl}
+    \end{align}
+
+    The productivity can be log linearized as
+    \begin{align}\label{eq:ll_z}
+        \hat{z}_t = \rho\hat{z}_{t-1} + \varepsilon_t
+    \end{align}
+
+    Equation \eqref{eq:ll_prod} can be used to estimate $\alpha$. Equation \eqref{eq:ll_lom} can be used to estimate $\delta$. Equation \eqref{eq:ll_foc_k} can be used to estimate $\phi$ given the estimated $\alpha$ and $\delta$.
+    
+    Equation \eqref{eq:ll_z} can be used to estimate $\rho$ and $\sigma_\varepsilon$.
+
+    Equation \eqref{eq:ll_foc_l} can be used to estimate $\eta$ and $\sigma$ given the estimated $\sigma$.
+
+    \item Yes. They match well with the data. For $\phi$, combining \eqref{eq:ll_foc_k} and \eqref{eq:ll_prod}, we can use data on consumption, output and labour series with one-step expectation to estimate $\phi$. 
+\end{enumerate}
+
+\end{document}
