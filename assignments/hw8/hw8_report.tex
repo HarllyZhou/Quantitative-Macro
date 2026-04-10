@@ -255,7 +255,47 @@ subject to
     \item Main variables respond in a similar pattern except labour. My results show that labour hour increases while Gali's VAR result shows that labour hour decreases. The main difference is that Gali's model incorporates money. In a monetary model, when labour is introduces, money neutrality does not hold and money growth affect labour supply decision. In this model, the mechanism is such that a positive productivity growth increases the real wage which leads to higher labour supply. In Gali's model, when the coefficient of lagged TFP shock is positive in the money growth process, a positive productivity growth leads to higher expected inflation and thus a higher nominal interest rate. As a result, people hold less money and thus less consumption. As a result, labour hours decrease.
 
     \newpage
-\noindent\textbf{Part III}
+    \noindent\textbf{Part III}
+    \item With government spending, at steady state, \eqref{eq:ss_consumption_investment} becomes
+    \begin{align}\label{eq:ss_consumption_investment_gov}
+        Y^* = C^* + I^* + G^*.
+    \end{align}
+    where $G^*$ is the government spending. There is an additional relation at steady state:
+    \begin{align}\label{eq:ss_gov_relation}
+        G^* = 0.2 Y^*.
+    \end{align}
+    With one more variable and one more equation, the system is still solvable.
+
+    In the log-linearized system, \eqref{eq:ll_consumption_investment} becomes
+    \begin{align}\label{eq:ll_consumption_investment_gov}
+        \hat{y}_t = \hat{c}_t \frac{C^*}{Y^*} + \hat{\iota}_t \frac{I^*}{Y^*} + 0.2 \hat{g}_t.
+    \end{align}
+    where $\hat{g}_t$ is the log-linearized government spending. The grovernment spending process provides one more equation:
+    \begin{align}\label{eq:ll_gov_process}
+        \hat{g}_t = \psi \hat{g}_{t-1} + u_t.
+    \end{align}
+
+    The impulse response comparisons are in Figure \ref{fig:hw8_i}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{hw8_part3_output/hw8_part3_j_irf_comparison.png}
+        \caption{Impulse response comparisons}
+        \label{fig:hw8_i}
+        \footnotesize{Note: This TFP shock is in the system with government spending.}
+    \end{figure}
+
+    An increase in government spending increases output. However, it occupies part of consumption and investment so consumption and investment decrease. Capital stock decreases as a result. As consumption decreases, MUC increases and thus labour supply increases to obtain more resources.
+
+    \newpage
+    \item Figure \ref{fig:hw8_j} shows the FEVDs.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{hw8_part3_output/hw8_part3_k_fevd.png}
+        \caption{FEVDs}
+        \label{fig:hw8_j}
+    \end{figure}
+
+    The TFP shock almost account for all the variances of consumption, output and investment. This is because government spending only enters the system through the resource constraint while the TFP shock directly enters the production function. Labour supply is affected relatively more by the government spending shock than the other three variables. This is because even without a TFP shock, the above-mentioned MUC will works much to drive this change.
 \end{enumerate}
 
 \end{document}
