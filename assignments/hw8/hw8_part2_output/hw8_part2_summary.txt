@@ -1,0 +1,33 @@
+ECON 5345 HW8 Part II
+=====================
+
+Baseline policy-rule coefficients for:
+  k_t = p * k_{t-1} + q * z_t
+  c_t = r * k_{t-1} + s * z_t
+
+[1] 0.956587 0.079647 0.534505 0.588979
+
+Residual check:
+[1] -4.63222e-08 -4.95389e-09 -1.75686e-07 -1.08292e-08
+
+Baseline steady state objects:
+    R_ss     W_ss     K_ss     Y_ss     C_ss     I_ss     L_ss       ky 
+0.035101 0.713017 9.496403 1.000000 0.762590 0.237410 0.934994 9.496403 
+      iy       cy 
+0.237410 0.762590 
+
+Model variances of growth rates:
+ variable     variance
+       dc 1.729475e-05
+       dy 7.066650e-05
+       dl 4.745569e-06
+       di 4.989303e-04
+
+Model covariance matrix of growth rates:
+          dc         dy        dl         di
+dc 1.729e-05 0.00003449 8.600e-06 0.00008972
+dy 3.449e-05 0.00007067 1.809e-05 0.00018687
+dl 8.600e-06 0.00001809 4.750e-06 0.00004858
+di 8.972e-05 0.00018687 4.858e-05 0.00049893
+
+Data analogues were not downloaded.

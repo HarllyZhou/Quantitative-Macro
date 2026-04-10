@@ -1,0 +1,48 @@
+HW8 Part (h) Data Analogues
+===========================
+
+Input file:
+/Users/harlly/Desktop/Quantitative-Macro/assignments/hw8/hw8_h.csv 
+
+Sample size after dropping missing observations: 76 
+Growth-rate observations: 75 
+
+Variables:
+Y = GDPC1
+C = PCEC96
+L = AWHAETP
+I = GPDI
+
+Growth rates are computed as quarterly log differences.
+
+Variance table:
+ variable     variance
+       dY 2.074003e-04
+       dC 2.489712e-04
+       dL 6.751331e-06
+       dI 1.807248e-03
+
+Variance-covariance matrix:
+           dY         dC        dL         dI
+dY 0.00020740 0.00021698 3.080e-06 0.00047805
+dC 0.00021698 0.00024897 1.140e-06 0.00044528
+dL 0.00000308 0.00000114 6.750e-06 0.00002573
+dI 0.00047805 0.00044528 2.573e-05 0.00180725
+
+
+HP filter:
+Variables are first transformed into logs and then HP filtered with lambda = 1600.
+
+HP-filtered variance table:
+ variable     variance
+       cY 0.0001894625
+       cC 0.0002434217
+       cL 0.0000175092
+       cI 0.0038269419
+
+HP-filtered variance-covariance matrix:
+           cY         cC         cL         cI
+cY 0.00018946 0.00019780 0.00001863 0.00065721
+cC 0.00019780 0.00024342 0.00001620 0.00057274
+cL 0.00001863 0.00001620 0.00001751 0.00014967
+cI 0.00065721 0.00057274 0.00014967 0.00382694
