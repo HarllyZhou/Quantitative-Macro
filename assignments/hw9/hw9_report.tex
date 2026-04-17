@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+\title{ECON 5345 Homework 9 Report}
+\author{Harlly Zhou}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item The endogenous variables are
+\begin{align*}
+    x_t =
+    \begin{bmatrix}
+        \hat{c}_t & \hat{i}_t & \hat{y}_t & \hat{l}_t
+    \end{bmatrix}'.
+\end{align*}
+The state variables are
+\begin{align*}
+    s_t =
+    \begin{bmatrix}
+        \hat{k}_{t-1} & \hat{z}_t
+    \end{bmatrix}'.
+\end{align*}
+
+The linearized equilibrium conditions are
+\begin{align*}
+\sigma \bigl(\mathbb{E}_t \hat{c}_{t+1} - \hat{c}_t\bigr)
+&=
+\beta R^* \mathbb{E}_t \bigl(\hat{y}_{t+1} - \hat{k}_t\bigr)
+  + \beta \phi \mathbb{E}_t \bigl(\hat{k}_{t+1} - \hat{k}_t\bigr)
+  - \phi \bigl(\hat{k}_t - \hat{k}_{t-1}\bigr), \\
+\left(1 + \frac{1}{\eta}\right)\hat{l}_t
+&= -\sigma \hat{c}_t + \hat{y}_t, \\
+\hat{y}_t
+&= \hat{z}_t + \alpha \hat{k}_{t-1} + (1-\alpha)\hat{l}_t, \\
+\hat{y}_t
+&= \frac{C^*}{Y^*}\hat{c}_t + \frac{I^*}{Y^*}\hat{i}_t, \\
+\hat{k}_t
+&= (1-\delta)\hat{k}_{t-1} + \delta \hat{i}_t, \\
+\hat{z}_t
+&= \rho \hat{z}_{t-1} + \varepsilon_t, \qquad \varepsilon_t \sim N(0,\sigma_\varepsilon^2).
+\end{align*}
+
+For a given $\theta = (\rho,\phi,\sigma_\varepsilon)$, solving the linear rational expectations model yields the reduced-form decision rule
+\begin{align*}
+    x_t = H(\theta)s_t,
+\end{align*}
+where
+\begin{align*}
+    H(\theta) =
+    \begin{bmatrix}
+        h_{c k}(\theta) & h_{c z}(\theta) \\
+        h_{i k}(\theta) & h_{i z}(\theta) \\
+        h_{y k}(\theta) & h_{y z}(\theta) \\
+        h_{l k}(\theta) & h_{l z}(\theta)
+    \end{bmatrix}.
+\end{align*}
+Then the capital accumulation equation becomes
+\begin{align}
+    \hat{k}_t
+    &= (1-\delta)\hat{k}_{t-1} + \delta \hat{i}_t \\
+    &= \Bigl[(1-\delta) + \delta h_{i k}(\theta)\Bigr]\hat{k}_{t-1}
+    + \delta h_{i z}(\theta)\hat{z}_t.
+\end{align}
+Thus the state transition equation is
+\begin{align}
+    s_{t+1}
+    =
+    \begin{bmatrix}
+        \hat{k}_t \\
+        \hat{z}_{t+1}
+    \end{bmatrix}
+    =
+    \underbrace{
+    \begin{bmatrix}
+        (1-\delta) + \delta h_{i k}(\theta) & \delta h_{i z}(\theta) \\
+        0 & \rho
+    \end{bmatrix}}_{B(\theta)}
+    s_t
+    +
+    \underbrace{\begin{bmatrix}
+        0 \\
+        \sigma_\varepsilon
+    \end{bmatrix} w_{t+1}}_{u_{t+1}}.
+\end{align}
+where $w_{t+1} \sim N(0,1)$ is the system error.
+
+The observed data are measured with error:
+\begin{align*}
+    x_t^* = x_t + e_t,
+    \qquad
+    e_t \sim N(0,\Xi),
+    \qquad
+    \Xi = \operatorname{diag}(0.25, 0.25, 0.25, 0.25).
+\end{align*}
+Therefore the measurement equation is
+\begin{align}
+    x_t^*
+    = H(\theta)s_t + e_t.
+\end{align}
+Hence the state-space representation is
+\begin{align}
+    s_{t+1} &= B(\theta)s_t + u_{t+1}, \\
+    x_t^* &= H(\theta)s_t + e_t.
+\end{align}
+
+We do not need to recompute the steady state for each candidate $\theta$ because $\rho$ and $\sigma_\varepsilon$ affect only the shock process, while $\phi$ affects only transition dynamics. They are all irrelevant to the steady state. 
+
+\item
+
+\end{enumerate}
+
+\end{document}
