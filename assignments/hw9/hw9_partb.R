@@ -94,14 +94,6 @@ compute_steady_state <- function(par) {
 }
 
 compute_linear_objects <- function(par) {
-    # combine foc of labour and production functions:
-    # (alpha+1/eta) l_t = -sigma c_t + z_t + alpha k_t
-    # plug this back into the production function:
-    # y_t = z_t + alpha k_t +
-    ## (1-alpha)/(alpha+1/eta) [-sigma c_t + z_t + alpha k_t]
-    ## = (1+1/eta)/(alpha+1/eta) z_t 
-    ## + alpha(1+1/eta)/(alpha+1/eta) k_t 
-    ## - sigma(1-alpha)/(alpha+1/eta) c_t
   A_l <- 1 + 1 / par$eta
   den <- par$alpha + 1 / par$eta
 
@@ -115,11 +107,6 @@ compute_linear_objects <- function(par) {
 
 
 policy_residuals <- function(x, par, ss, lin) {
-    # initial guess of
-    # c_t = r k_t + s z_t
-    # k_t = p k_t-1 + q z_t
-    # y_t = gk + gc * r k_t + gz * z_t
-    # l_t = (-sigma c_t + y_t) / (alpha+1/eta)
   p <- x[1]
   q <- x[2]
   r <- x[3]
@@ -156,6 +143,7 @@ solve_reduced_form <- function(par, ss, lin, tol = 1e-8) {
     c(0.85, 0.15, 0.15, 1.20),
     c(0.99, 0.01, 0.05, 0.10)
   )
+  # here we try multiple initial guesses to ensure stability of solution
 
   objective <- function(x) {
     sum(policy_residuals(x, par, ss, lin)^2)

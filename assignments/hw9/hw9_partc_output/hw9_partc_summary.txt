@@ -1,0 +1,52 @@
+ECON 5345 HW9 Part (c)
+======================
+
+Number of observations:
+[1] 1000
+
+Optimization convergence code:
+[1] 0
+
+Maximized log-likelihood:
+[1] -4872.453
+
+Parameter estimates and standard errors:
+ parameter true_value initial_value  estimate   std_error
+       rho        0.9           0.9 0.9082181 0.000675632
+       phi        5.0           5.0 4.9419508 0.024520529
+ sigma_eps        1.0           1.0 1.0134128 0.023527136
+
+Hessian with respect to transformed parameters:
+                 rho        phi sigma_eps
+rho       15240.4723   449.3344 -163.7167
+phi         449.3344 40772.2917 -514.0841
+sigma_eps  -163.7167  -514.0841 1863.5090
+
+Covariance matrix for theta (delta method):
+               rho         phi  sigma_eps
+rho        4.6e-07 -0.00000027 0.00000047
+phi       -2.7e-07  0.00060126 0.00003373
+sigma_eps  4.7e-07  0.00003373 0.00055353
+
+Estimated state transition matrix B:
+          k_lag          z
+k_lag 0.9645645 0.07893629
+z     0.0000000 0.90821813
+
+Estimated measurement matrix H:
+       k_lag         z
+c  0.4745005 0.5943255
+i -0.4174200 3.1574516
+y  0.2627498 1.2028372
+l -0.1058754 0.3042559
+
+Estimated state innovation covariance Q:
+      k_lag        z
+k_lag     0 0.000000
+z         0 1.027005
+
+Reduced-form coefficients [p, q, r, s] at theta_hat:
+[1] 0.96456450 0.07893629 0.47450050 0.59432550
+
+Residual check at theta_hat:
+[1]  1.63453e-07 -1.91721e-07  2.81318e-06 -8.14839e-07

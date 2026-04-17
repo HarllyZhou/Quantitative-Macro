@@ -37,23 +37,23 @@ The state variables are
 \end{align*}
 
 The linearized equilibrium conditions are
-\begin{align*}
+\begin{align}
 \sigma \bigl(\mathbb{E}_t \hat{c}_{t+1} - \hat{c}_t\bigr)
 &=
 \beta R^* \mathbb{E}_t \bigl(\hat{y}_{t+1} - \hat{k}_t\bigr)
   + \beta \phi \mathbb{E}_t \bigl(\hat{k}_{t+1} - \hat{k}_t\bigr)
-  - \phi \bigl(\hat{k}_t - \hat{k}_{t-1}\bigr), \\
+  - \phi \bigl(\hat{k}_t - \hat{k}_{t-1}\bigr), \label{eq:ll_euler}\\
 \left(1 + \frac{1}{\eta}\right)\hat{l}_t
-&= -\sigma \hat{c}_t + \hat{y}_t, \\
+&= -\sigma \hat{c}_t + \hat{y}_t, \label{eq:ll_foc_l}\\
 \hat{y}_t
-&= \hat{z}_t + \alpha \hat{k}_{t-1} + (1-\alpha)\hat{l}_t, \\
+&= \hat{z}_t + \alpha \hat{k}_{t-1} + (1-\alpha)\hat{l}_t, \label{eq:ll_production}\\
 \hat{y}_t
-&= \frac{C^*}{Y^*}\hat{c}_t + \frac{I^*}{Y^*}\hat{i}_t, \\
+&= \frac{C^*}{Y^*}\hat{c}_t + \frac{I^*}{Y^*}\hat{i}_t, \label{eq:ll_resource}\\
 \hat{k}_t
-&= (1-\delta)\hat{k}_{t-1} + \delta \hat{i}_t, \\
+&= (1-\delta)\hat{k}_{t-1} + \delta \hat{i}_t, \label{eq:ll_lom}\\
 \hat{z}_t
-&= \rho \hat{z}_{t-1} + \varepsilon_t, \qquad \varepsilon_t \sim N(0,\sigma_\varepsilon^2).
-\end{align*}
+&= \rho \hat{z}_{t-1} + \varepsilon_t, \qquad \varepsilon_t \sim N(0,\sigma_\varepsilon^2). \label{eq:ll_productivity}
+\end{align}
 
 For a given $\theta = (\rho,\phi,\sigma_\varepsilon)$, solving the linear rational expectations model yields the reduced-form decision rule
 \begin{align*}
@@ -120,7 +120,125 @@ Hence the state-space representation is
 
 We do not need to recompute the steady state for each candidate $\theta$ because $\rho$ and $\sigma_\varepsilon$ affect only the shock process, while $\phi$ affects only transition dynamics. They are all irrelevant to the steady state. 
 
-\item
+\newpage
+\item We first solve for the log-linearized system.
+
+Write $b_{kk}(\theta) = (1-\delta)+\delta h_{i k}(\theta)$ and $b_{kz}(\theta) = \delta h_{i z}(\theta)$. In the following, we drop the dependence on $\theta$ for notational clarity.
+
+We then have
+\begin{align}
+    \hat{k}_t = b_{kk}\hat{k}_{t-1} + b_{kz}\hat{z}_t, \label{eq:ssrep_k}\\
+    \hat{c}_t = h_{c k}\hat{k}_{t-1} + h_{c z}\hat{z}_t \label{eq:ssrep_c}
+\end{align}
+Combining \eqref{eq:ll_foc_l} and \eqref{eq:ll_production}, we get
+\begin{align}\label{eq:ll_foc_l_alt}
+    \hat{\ell}_t = \frac{-\sigma c_t + z_t + \alpha k_{t-1}}{\alpha + 1/\eta}.
+\end{align}
+Substituting this into \eqref{eq:ll_production}, we get
+\begin{align*} 
+    \hat{y}_t = \left(\frac{1+1/\eta}{\alpha + 1/\eta}\right) \hat{z}_t + \left(\frac{\alpha(1+1/\eta)}{\alpha + 1/\eta}\right) \hat{k}_{t-1} + \left(\frac{-\sigma(1-\alpha)}{\alpha + 1/\eta}\right) \hat{c}_t.
+\end{align*}
+By \eqref{eq:ssrep_k} and \eqref{eq:ssrep_c}, this can be further reduced to
+\begin{align}\label{eq:ll_prod_alt}
+    \hat{y}_t = \frac{\alpha (1 + 1/\eta) - \sigma h_{ck} (1-\alpha)}{\alpha + 1/\eta} \hat{k}_{t-1} + \frac{(1 + 1/\eta) - \sigma h_{cz} (1-\alpha)}{\alpha + 1/\eta} \hat{z}_t.
+\end{align}
+
+Combining \eqref{eq:ll_resource} and \eqref{eq:ll_lom}, we get
+\begin{align*}
+    \hat{y}_t = \frac{C^*}{Y^*} \hat{c}_t + \frac{K^*}{Y^*} [\hat{k}_t - (1-\delta)\hat{k}_{t-1}].
+\end{align*}
+By \eqref{eq:ssrep_k} and \eqref{eq:ssrep_c}, this can be further reduced to
+\begin{align}\label{eq:ll_resource_alt}
+    \hat{y}_t = \left[\frac{C^*}{Y^*}h_{ck} + \frac{K^*}{Y^*}[b_{kk} - (1-\delta)]\right] \hat{k}_{t-1} + \left[\frac{C^*}{Y^*}h_{cz} + \frac{K^*}{Y^*}b_{kz}\right] \hat{z}_t.
+\end{align}
+
+Equating the coefficients of $\hat{k}_{t-1}$ and $\hat{z}_t$ in \eqref{eq:ll_prod_alt} and \eqref{eq:ll_resource_alt}, we get
+\begin{align}
+    \frac{\alpha (1 + 1/\eta) - \sigma h_{ck} (1-\alpha)}{\alpha + 1/\eta} &= \frac{C^*}{Y^*}h_{ck} + \frac{K^*}{Y^*}[b_{kk} - (1-\delta)], \label{eq:coeff_k_1}\\
+    \frac{(1 + 1/\eta) - \sigma h_{cz} (1-\alpha)}{\alpha + 1/\eta} &= \frac{C^*}{Y^*}h_{cz} + \frac{K^*}{Y^*}b_{kz}. \label{eq:coeff_z_1}
+\end{align}
+
+Two more equations can be obtained by the Euler equation \eqref{eq:ll_euler}. \eqref{eq:ssrep_k} and \eqref{eq:ssrep_c} imply the following:
+\begin{align*}
+    \mathbb{E}_t \hat{c}_{t+1} &= h_{ck} k_t + \rho h_{cz} z_t,\\
+    \mathbb{E}_t \hat{y}_{t+1} &= \underbrace{\frac{\alpha (1 + 1/\eta) - \sigma h_{ck} (1-\alpha)}{\alpha + 1/\eta}}_{y_k} k_t + \underbrace{\frac{(1 + 1/\eta) - \sigma h_{cz} (1-\alpha)}{\alpha + 1/\eta}}_{y_z} \rho \hat{z}_t, \\
+    \mathbb{E}_t \hat{k}_{t+1} &= b_{kk} k_t + b_{kz} \rho z_t.
+\end{align*}
+Substituting these together with \eqref{eq:ssrep_k} and \eqref{eq:ssrep_c} into \eqref{eq:ll_euler}, we get
+\begin{align*}
+    &\sigma \left[h_{ck}(b_{kk}-1)\hat{k}_{t-1} + [h_{ck}b_{kz} + h_{cz}(\rho-1)]\hat{z}_t\right]\\
+    = \, &\beta R^* \left[(y_k - 1)b_{kk} \hat{k}_{t-1} + [(y_k - 1)b_{kz} + y_z\rho]\hat{z}_t\right]\\
+    &+ \beta \phi \left[b_{kk}(b_{kk}-1)\hat{k}_{t-1} + [b_{kk}b_{kz} + b_{kz}(\rho-1)]\hat{z}_t\right]\\
+    &- \phi \left[(b_{kk}-1)\hat{k}_{t-1} + b_{kz} \hat{z}_t\right].
+\end{align*}
+Equating the coefficients on both sides, we get two more equations:
+\begin{align}
+    \sigma h_{ck} (b_{kk}-1) &= \beta R^*(y_k-1)b_{kk} + \beta \phi b_{kk}(b_{kk}-1) - \phi(b_{kk}-1), \label{eq:coeff_k_2}\\
+    \sigma [h_{ck}b_{kz} + h_{cz}(\rho-1)] &= \beta R^* [(y_k-1)b_{kz} + y_z\rho] + \beta \phi [b_{kk}b_{kz} + b_{kz}(\rho-1)] - \phi b_{kz}. \label{eq:coeff_z_2}
+\end{align}
+Substituting the parameter values, we can get the solution for $h_{ck}$, $h_{cz}$, $b_{kk}$, and $b_{kz}$. As a result, we get $h_{yk}$ and $h_{yz}$ from \eqref{eq:ll_prod_alt}, $h_{l k}$ and $h_{l z}$ from \eqref{eq:ll_foc_l_alt}, and $h_{i k}$ and $h_{i z}$ from \eqref{eq:ll_lom}.
+
+The simulated data are generated by the code. We simulated 2000 times and burnt the first 1000. We start the initial state with $s_0 = [0 \; 0]'$, that is, the steady state. Simulated data are saved in the file \texttt{hw9\_partb\_simulated\_data.txt}. Here we report the $H$ matrix and the $B$ matrix.
+
+\begin{align*}
+    H = \begin{bmatrix}
+        0.4738 & 0.5911\\
+	    -0.4139 & 3.1746\\
+	    0.2631 & 1.2044\\
+    	-0.1054 & 0.3067
+    \end{bmatrix}, \qquad
+    B = \begin{bmatrix}
+        0.9647 & 0.0794\\
+        0 & 0.9
+    \end{bmatrix}.
+\end{align*}
+
+\newpage
+\item I report the parameter estimates and covariance matrix.
+
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{lccc}
+    \hline
+    Parameter & True Value & Estimate & Std. Error \\
+    \hline
+    $\rho$        & 0.9 & 0.9082 & 0.0007 \\
+    $\phi$        & 5.0 & 4.9420 & 0.0245 \\
+    $\sigma_{\varepsilon}$ & 1.0 & 1.0134 & 0.0235 \\
+    \hline
+    \end{tabular}
+    \caption{Parameter Estimates}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{lccc}
+    \hline
+     & $\rho$ & $\phi$ & $\sigma_{\varepsilon}$ \\
+    \hline
+    $\rho$        & $4.6\times 10^{-7}$ & $-2.7\times 10^{-7}$ & $4.7\times 10^{-7}$ \\
+    $\phi$        & $-2.7\times 10^{-7}$ & $6.0126\times 10^{-4}$ & $3.373\times 10^{-5}$ \\
+    $\sigma_{\varepsilon}$ & $4.7\times 10^{-7}$ & $3.373\times 10^{-5}$ & $5.5353\times 10^{-4}$ \\
+    \hline
+    \end{tabular}
+    \caption{Covariance Matrix of $\theta$}
+\end{table}
+
+The estimated state-space matrices are
+\begin{align*}
+    \hat{H} = \begin{bmatrix}
+        0.4745 & 0.5943\\
+        -0.4174 & 3.1575\\
+        0.2627 & 1.2028\\
+        -0.1059 & 0.3043
+    \end{bmatrix}, \qquad
+    \hat{B} = \begin{bmatrix}
+        0.9646 & 0.0789\\
+        0 & 0.9082
+    \end{bmatrix}.
+\end{align*}
+
+
 
 \end{enumerate}
 
