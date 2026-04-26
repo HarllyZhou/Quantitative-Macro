@@ -1,0 +1,25 @@
+ECON 5345 HW10
+============
+
+Observations:
+[1] 1000
+
+MCMC draws:
+[1] 200000
+
+Acceptance rates:
+ parameter proposal_sd final_scale accept_rate
+       rho 0.001613692    6.727500    0.931235
+       phi 0.012095063    3.797498    0.399430
+ sigma_eps 0.000100000    6.727500    0.991680
+
+Posterior means (all draws):
+      rho       phi sigma_eps 
+0.9086005 4.9210094 1.0150427 
+
+Posterior standard deviations (all draws):
+        rho         phi   sigma_eps 
+0.009583805 0.194854610 0.022416513 
+
+Max log-likelihood in chain:
+[1] -4872.453

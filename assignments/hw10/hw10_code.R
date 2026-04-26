@@ -130,7 +130,7 @@ solve_reduced_form <- function(par, ss, lin, warm_start = NULL, tol = 1e-8) {
         par = start,
         fn = objective,
         method = "BFGS",
-        control = list(reltol = 1e-15, maxit = 10000)
+        control = list(reltol = 1e-10, maxit = 1000)
       ),
       error = function(e) NULL
     )
@@ -439,24 +439,32 @@ current_nll <- neg_loglik(current_raw, y = y_data, cache_env = model_cache)
 
 for (draw in seq_len(n_draws)) {
   for (j in seq_len(3)) {
-    cand_raw <- current_raw
-    cand_raw[j] <- current_raw[j] +
-      scale_vec[j] * proposal_sd[j] * stats::rnorm(1)
-
+    cand_raw <- current_raw + scale_vec * proposal_sd * stats::rnorm(3)
     cand_nll <- neg_loglik(cand_raw, y = y_data, cache_env = model_cache)
-
+    
     log_alpha <- -cand_nll + current_nll
     if (is.finite(log_alpha) && log(stats::runif(1)) < min(0, log_alpha)) {
       current_raw <- cand_raw
       current_nll <- cand_nll
-      accept_total[j] <- accept_total[j] + 1L
-      accept_block[j] <- accept_block[j] + 1L
+      accept_total <- accept_total + 1L
     }
   }
 
   chain_raw[draw, ] <- current_raw
   chain_theta[draw, ] <- unpack_theta(current_raw)
   loglik_path[draw] <- -current_nll
+  
+  if (draw %% 100L == 0L) {
+    cat(
+      format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
+      "| draw =", draw,
+      "of", n_draws,
+      "| progress =", sprintf("%.2f%%", 100 * draw / n_draws),
+      "| loglik =", sprintf("%.4f", -current_nll),
+      "\n"
+    )
+    flush.console()
+  }
 
   if (draw <= adapt_until && (draw %% adapt_every == 0L)) {
     block_rate <- accept_block / adapt_every
