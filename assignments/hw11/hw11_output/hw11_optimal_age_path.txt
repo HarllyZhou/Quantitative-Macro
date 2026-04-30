@@ -1,0 +1,17 @@
+t	age	action
+1	1	keep
+2	2	keep
+3	3	keep
+4	4	replace
+5	1	keep
+6	2	keep
+7	3	keep
+8	4	replace
+9	1	keep
+10	2	keep
+11	3	keep
+12	4	replace
+13	1	keep
+14	2	keep
+15	3	keep
+16	4	replace
